@@ -1,0 +1,56 @@
+import com.app.signal.buildSrc.AndroidTarget
+import com.app.signal.buildSrc.Libs
+
+plugins {
+    id "com.android.library"
+    id "org.jetbrains.kotlin.android"
+    id "dagger.hilt.android.plugin"
+
+    id "kotlin-parcelize"
+    id "kotlinx-serialization"
+    id "kotlin-kapt"
+}
+
+android {
+    compileSdkVersion AndroidTarget.compileSdk
+
+    defaultConfig {
+        minSdkVersion AndroidTarget.minSdk
+        targetSdkVersion AndroidTarget.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    coreLibraryDesugaring Libs.Util.desugaring
+
+    // implementation project(Module.Core.app_runtime)
+    // implementation project(Module.Core.utils)
+
+    implementation Libs.Kotlin.stdlibJdk8
+    implementation Libs.Kotlin.Coroutines.core
+    implementation Libs.Kotlin.Coroutines.android
+    implementation Libs.Kotlin.serialization
+
+    implementation Libs.AndroidX.AppCompat.androidXAppCompat
+
+    implementation Libs.Hilt.implementation
+    kapt Libs.Hilt.kapt
+}

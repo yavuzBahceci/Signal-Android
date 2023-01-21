@@ -1,0 +1,27 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Signal"
+
+include ':app',
+        ':di',
+        ':domain',
+        ':data',
+        ':services',
+        ':runtime',
+        ':utils'
+include ':feature'
+include ':feature:dashboard'
+include ':interactors'
+include ':services:android-services'

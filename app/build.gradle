@@ -1,0 +1,103 @@
+import com.app.signal.buildSrc.*
+
+plugins {
+    id "com.android.application"
+
+    id "kotlin-android"
+    id "kotlin-kapt"
+
+    id "dagger.hilt.android.plugin"
+}
+
+android {
+    namespace AndroidTarget.nameSpace
+    compileSdk AndroidTarget.compileSdk
+
+    defaultConfig {
+        applicationId AndroidTarget.applicationId
+        minSdk AndroidTarget.minSdk
+        targetSdk AndroidTarget.targetSdk
+        versionCode Version.versionCode
+        versionName Version.appVersion
+
+        testInstrumentationRunner TestConfig.testInstrumentationRunner
+
+        signingConfig signingConfigs.debug
+
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "signal_v_${versionName}_build${versionCode}_${variant.buildType.name}.apk"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(Proguard.optimizeTxt), Proguard.rulesPro
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(Proguard.optimizeTxt), Proguard.rulesPro
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = Java.jvmTarget
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation Libs.AndroidX.androidXCore
+    implementation Libs.AndroidX.AppCompat.androidXAppCompat
+    implementation Libs.AndroidX.AppCompat.resources
+    implementation Libs.material
+    implementation Libs.AndroidX.constraintLayout
+
+    // Move
+    implementation project(Module.Core.domain)
+
+
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.Kotlin.Coroutines.core
+    implementation Libs.Kotlin.Coroutines.android
+    implementation Libs.Kotlin.reflect
+
+    implementation Libs.AndroidX.androidXCore
+    implementation Libs.AndroidX.activity
+    implementation Libs.AndroidX.fragment
+    implementation Libs.AndroidX.Lifecycle.viewModel
+    implementation Libs.AndroidX.Lifecycle.viewModelSavedState
+    implementation Libs.AndroidX.Lifecycle.runtime
+    implementation Libs.AndroidX.Lifecycle.common
+
+    implementation Libs.AndroidX.constraintLayout
+
+    testImplementation TestLibraries.jUnit
+    androidTestImplementation TestLibraries.androidXJUnit
+    androidTestImplementation TestLibraries.espressoCore
+
+    // HILT
+    implementation Libs.Hilt.implementation
+
+    kapt Libs.Hilt.kapt
+
+
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}

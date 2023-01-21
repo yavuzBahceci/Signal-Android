@@ -1,0 +1,85 @@
+import com.app.signal.buildSrc.AndroidTarget
+import com.app.signal.buildSrc.Libs
+import com.app.signal.buildSrc.Module
+
+plugins {
+    id "com.android.library"
+    id "org.jetbrains.kotlin.android"
+    id "dagger.hilt.android.plugin"
+
+    id "kotlinx-serialization"
+    id "kotlin-kapt"
+}
+
+android {
+    compileSdkVersion AndroidTarget.compileSdk
+
+    defaultConfig {
+        minSdkVersion AndroidTarget.minSdk
+        targetSdkVersion AndroidTarget.targetSdk
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"https://api.flickr.com/services/rest/"'
+            buildConfigField 'String', 'FLICKR_API_KEY', '"1508443e49213ff84d566777dc211f2a"'
+        }
+
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"https://api.flickr.com/services/rest/"'
+            buildConfigField 'String', 'FLICKR_API_KEY', '"1508443e49213ff84d566777dc211f2a"'
+        }
+    }
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    coreLibraryDesugaring Libs.Util.desugaring
+
+    // implementation project(Module.Core.app_runtime)
+    // implementation project(Module.Core.utils)
+    implementation project(Module.Core.domain)
+
+    implementation Libs.Kotlin.stdlibJdk8
+
+    implementation Libs.Kotlin.Coroutines.core
+    implementation Libs.Kotlin.Coroutines.android
+
+    implementation Libs.AndroidX.Room.runtime
+    implementation Libs.AndroidX.Room.ktx
+
+    kapt Libs.AndroidX.Room.kapt
+
+    implementation Libs.Retrofit.implementation
+    implementation Libs.Retrofit.logger
+
+    implementation Libs.Kotlin.serialization
+
+    implementation Libs.Hilt.implementation
+    kapt Libs.Hilt.kapt
+}

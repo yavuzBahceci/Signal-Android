@@ -5,9 +5,7 @@ import com.app.signal.data.repository.photo.store.PhotoLocalStore
 import com.app.signal.data.repository.photo.store.PhotoRemoteStore
 import com.app.signal.data.repository.photo.store.PhotoRetrofitStore
 import com.app.signal.data.repository.photo.store.PhotoRoomStore
-import com.app.signal.data.service.photo.PhotoServiceImpl
 import com.app.signal.domain.repository.PhotoRepository
-import com.app.signal.domain.service.PhotoService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,8 +24,4 @@ abstract class PhotoDataModule {
     @Binds
     @Singleton
     abstract fun bindRepository(impl: PhotoRepositoryImpl): PhotoRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindService(impl: PhotoServiceImpl): PhotoService
 }

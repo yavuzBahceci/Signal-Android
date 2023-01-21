@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_unable_to_connect">Unable To connect</string>
+    <string name="error_unknown">Unknown Error</string>
+</resources>

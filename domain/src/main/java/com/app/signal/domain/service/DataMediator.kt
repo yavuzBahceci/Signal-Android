@@ -6,12 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface DataMediator {
 
-    fun <Dto> exec(
-        remote: suspend () -> Dto
-    ): Flow<State<Dto>>
-
-    fun <Model> execCache(
-        cache: suspend () -> Model,
+    fun <Model> exec(
+        get: suspend () -> Model
     ): Flow<State<Model>>
 
     fun execSave(

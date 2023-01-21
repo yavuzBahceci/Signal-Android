@@ -2,7 +2,9 @@ package com.app.signal.data.rest.injector
 
 import com.app.signal.data.BuildConfig
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
+
 
 private object HeaderKey {
     const val METHOD = "method"
@@ -22,15 +24,17 @@ private object HeaderValue {
 
 class PhotoApiInjector : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request()
+
+        val url = chain.request().url
             .newBuilder()
-            .header(HeaderKey.METHOD, HeaderValue.methodValue)
-            .header(HeaderKey.API_KEY, HeaderValue.apiKeyValue)
-            .header(HeaderKey.FORMAT, HeaderValue.formatValue)
-            .header(HeaderKey.NO_JSON, HeaderValue.noJsonCallbackValue)
-            .header(HeaderKey.PER_PAGE, HeaderValue.perPageValue.toString())
+            .addQueryParameter(HeaderKey.METHOD, HeaderValue.methodValue)
+            .addQueryParameter(HeaderKey.API_KEY, HeaderValue.apiKeyValue)
+            .addQueryParameter(HeaderKey.FORMAT, HeaderValue.formatValue)
+            .addQueryParameter(HeaderKey.NO_JSON, HeaderValue.noJsonCallbackValue)
+            .addQueryParameter(HeaderKey.PER_PAGE, HeaderValue.perPageValue.toString())
+            .build()
+        val request: Request = chain.request().newBuilder().url(url).build()
 
-
-        return chain.proceed(builder.build())
+        return chain.proceed(request)
     }
 }

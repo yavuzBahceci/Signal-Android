@@ -15,11 +15,11 @@ data class PhotoRepositoryImpl @Inject constructor(
 ) : PhotoRepository {
 
     override fun getSearchResults(params: SearchQueryParams) = mediator.exec(
-        remote = { remote.getPhotos(params) }
+        get = { remote.getPhotos(params) }
     )
 
-    override fun getSavedPhotos() = mediator.execCache(
-        cache = { local.getSavedPhotos() }
+    override fun getSavedPhotos() = mediator.exec(
+        get = { local.getSavedPhotos() }
     )
 
     override fun savePhoto(photo: Photo) = mediator.execSave(

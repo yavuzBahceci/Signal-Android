@@ -15,29 +15,11 @@ class DataMediatorImpl @Inject constructor(
     private val errorHandler: ErrorHandler
 ) : DataMediator {
 
-    override fun <Dto> exec(remote: suspend () -> Dto): Flow<State<Dto>> = flow {
+    override fun <Dto> exec(get: suspend () -> Dto): Flow<State<Dto>> = flow {
         emit(State.Loading(null))
 
         val state = try {
-            val data = remote()
-
-            State.Success(data)
-        } catch (ex: Throwable) {
-            if (BuildConfig.DEBUG) {
-                Log.v("DATA_MEDIATOR", "err $ex")
-            }
-            State.Error(errorHandler.process(ex))
-        }
-
-        emit(state)
-    }
-
-    override fun <Model> execCache(cache: suspend () -> Model): Flow<State<Model>> = flow {
-        emit(State.Loading(null))
-
-        val state = try {
-            val data = cache()
-
+            val data = get()
             State.Success(data)
         } catch (ex: Throwable) {
             if (BuildConfig.DEBUG) {

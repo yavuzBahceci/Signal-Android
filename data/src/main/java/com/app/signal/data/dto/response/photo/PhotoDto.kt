@@ -4,12 +4,17 @@ import android.net.Uri
 import com.app.signal.domain.model.photo.Image
 import com.app.signal.domain.model.photo.Photo
 import kotlinx.serialization.Contextual
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
+@Serializable
+sealed class AnyImageDto : Image
 
 @Serializable
 data class PhotoListDto(
     val page: Long,
     val pages: Long,
+    @SerialName("perpage")
     val perPage: Long,
     val total: Long,
     val photo: List<PhotoDto>
@@ -80,4 +85,4 @@ data class ImageDto(
     override val largeImageUrl: Uri?,
     @Contextual
     override val thumbNailUrl: Uri?
-) : Image
+) : AnyImageDto()

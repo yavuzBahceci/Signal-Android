@@ -1,5 +1,3 @@
-import com.app.signal.buildSrc.*
-
 plugins {
     id "com.android.application"
 
@@ -68,6 +66,8 @@ dependencies {
 
     // Move
     implementation project(Module.Core.domain)
+    implementation project(Module.Core.data)
+    implementation project(Module.Core.dependencies)
 
 
     implementation Libs.Kotlin.stdlib

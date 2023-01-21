@@ -1,6 +1,7 @@
 package com.app.signal.data.repository.photo.store
 
 import androidx.room.withTransaction
+import com.app.signal.data.dto.response.photo.ImageDto
 import com.app.signal.data.room.AppDatabase
 import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.domain.model.photo.Photo
@@ -27,7 +28,11 @@ data class PhotoRoomStore @Inject constructor(
         db.withTransaction {
             val entity = PhotoEntity(
                 dto.id,
-                dto.img,
+                ImageDto(
+                    dto.img.smallImageUrl,
+                    dto.img.largeImageUrl,
+                    dto.img.thumbNailUrl
+                ),
                 dto.title
             )
 

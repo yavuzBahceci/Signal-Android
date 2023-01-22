@@ -1,4 +1,4 @@
-package com.app.signal
+package com.app.dashboard.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,7 @@ import com.app.signal.domain.form.photo.SearchQueryParams
 import com.app.signal.domain.model.State
 import com.app.signal.domain.model.photo.Photo
 import com.app.signal.domain.repository.PhotosState
+import com.app.signal.domain.service.AppStorage
 import com.app.signal.domain.service.PhotoService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,11 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class MainViewModel @Inject constructor(
-    private val photoService: PhotoService
+    private val photoService: PhotoService,
+    private val appStorage: AppStorage
 ) : ViewModel() {
 
+    val recentSearches = appStorage.observePreviousSearches()
+        .flowOn(Dispatchers.IO)
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
     val photos = photoService
-        .searchPhotos(SearchQueryParams("Lion", 4))
+        .searchPhotos(SearchQueryParams("Snake", 7))
         .flowOn(Dispatchers.IO)
         .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())
 

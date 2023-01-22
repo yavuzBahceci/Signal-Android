@@ -1,4 +1,4 @@
-package com.app.signal
+package com.app.dashboard.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                                         println("!!!!!!! Image deleted ${photo.id}")
                                         vm.getSavedPhotos().collect {
                                             println("!!!!!!! ${it.isSuccess} No photos ${it.data}")
+                                            vm.recentSearches.collect {
+                                                println("!!!!!!! Recent Searches $it")
+                                            }
                                         }
                                     }
                                 }

@@ -1,6 +1,8 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
+import com.app.signal.buildSrc.Feature
+
 
 plugins {
     id("com.android.library")
@@ -43,6 +45,12 @@ dependencies {
 
     implementation project(Module.Core.data)
     implementation project(Module.Core.domain)
+
+    implementation project(Module.Common.navigation)
+
+    implementation project(Feature.discover)
+    implementation project(Feature.saved)
+    implementation project(Feature.image_detail)
 
     implementation project(Module.Services.android_services)
 

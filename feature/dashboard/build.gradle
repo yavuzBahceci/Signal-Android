@@ -81,4 +81,7 @@ dependencies {
 
     kapt Libs.Hilt.kapt
 
+    implementation project(Module.Common.navigation)
+
+
 }

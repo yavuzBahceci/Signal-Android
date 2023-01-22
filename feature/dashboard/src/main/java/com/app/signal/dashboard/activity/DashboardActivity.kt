@@ -43,7 +43,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        setContentView(R.layout.activity_main)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
@@ -62,48 +62,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         appRouterFragment.refreshSystemBarStyle()
-        startCollectors()
-
     }
 
-    private fun startCollectors() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { bindFlows() }
-            }
-        }
-    }
 
-    private suspend fun bindFlows() {
-        println("!!!!!! Bind Flows")
-        vm.photos.collect {
-            it.data?.items?.map { photo ->
-                println("Large Image ${photo.img.largeImageUrl}")
-                println("Small Image ${photo.img.smallImageUrl}")
-                println("Thumbnail Image ${photo.img.thumbNailUrl}")
-                vm.savePhoto(photo).collect {
-                    println("!!!!!!!! Photo saved ${it.isSuccess} $photo")
-                    if (it.isSuccess) {
-                        vm.getSavedPhotos().collect { state ->
-                            state.data?.map {
-                                println("!!!!!!! Saved Image $it")
-                                if (state.isSuccess) {
-                                    vm.deletePhoto(it.id).collect {
-                                        println("!!!!!!! Image deleted ${photo.id}")
-                                        vm.getSavedPhotos().collect {
-                                            println("!!!!!!! ${it.isSuccess} No photos ${it.data}")
-                                            vm.recentSearches.collect {
-                                                println("!!!!!!! Recent Searches $it")
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

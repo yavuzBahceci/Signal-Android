@@ -25,7 +25,7 @@ data class PhotoRetrofitStore @Inject constructor(
     }
 
     private fun createPhotoListPage(response: PhotoResponse<PhotoListDto>) =
-        if (response.photos.pages < response.photos.page) {
+        if (response.photos.page < response.photos.pages) {
             PhotoListPage(response.photos.photo, response.photos.page + 1)
         } else {
             PhotoListPage(response.photos.photo, null)

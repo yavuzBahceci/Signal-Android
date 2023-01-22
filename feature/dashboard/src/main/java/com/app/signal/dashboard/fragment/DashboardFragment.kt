@@ -8,6 +8,7 @@ import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.app.navigation.router.DiscoverRouter
 import com.app.signal.control_kit.ex.switchToChild
 import com.app.signal.control_kit.ex.updateMargins
 import com.app.signal.control_kit.fragment.AnyFragment
@@ -19,6 +20,7 @@ import com.app.signal.dashboard.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import loadAttrDimension
+import javax.inject.Inject
 
 const val DashboardFragmentRequestKey = "DASHBOARD_REQ_KEY_SELECT_TAB"
 
@@ -29,6 +31,9 @@ object DashboardBundleKey {
 
 @AndroidEntryPoint
 class DashboardFragment : AnyFragment(R.layout.fragment_dashboard) {
+
+    @Inject
+    lateinit var discoverRouter: DiscoverRouter
 
     private lateinit var container: ViewGroup
     private lateinit var bottomNav: BottomNavigationView
@@ -107,7 +112,6 @@ class DashboardFragment : AnyFragment(R.layout.fragment_dashboard) {
     }
 
 
-
     private fun switchToFragment(@IdRes id: Int) {
         if (id == bottomNav.selectedItemId) {
             val fragment = childFragmentManager.primaryNavigationFragment as? ScrollableFragment
@@ -119,9 +123,9 @@ class DashboardFragment : AnyFragment(R.layout.fragment_dashboard) {
         }
     }
 
-    private fun createFragmentFrom(@IdRes id: Int): Fragment {
-        /*R.id.discover -> // DiscoverFragment()
-        else -> // SavedFragment()*/
-        TODO("")
+    private fun createFragmentFrom(@IdRes id: Int): Fragment = when (id) {
+        R.id.discover -> discoverRouter.getDiscoverFragment()
+        else -> discoverRouter.getDiscoverFragment()
+
     }
 }

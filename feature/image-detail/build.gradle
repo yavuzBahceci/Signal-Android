@@ -1,0 +1,69 @@
+import com.app.signal.buildSrc.AndroidTarget
+import com.app.signal.buildSrc.Libs
+import com.app.signal.buildSrc.Module
+
+plugins {
+    id "com.android.library"
+    id "org.jetbrains.kotlin.android"
+    id "dagger.hilt.android.plugin"
+
+    id "kotlin-parcelize"
+    id "kotlinx-serialization"
+    id "kotlin-kapt"
+}
+
+android {
+    compileSdkVersion AndroidTarget.compileSdk
+
+    defaultConfig {
+        minSdkVersion AndroidTarget.minSdk
+        targetSdkVersion AndroidTarget.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    coreLibraryDesugaring Libs.Util.desugaring
+
+    implementation project(Module.Core.utils)
+    implementation project(Module.Core.domain)
+
+    implementation project(Module.Common.navigation)
+
+    implementation project(Module.UI.designSystem)
+    implementation project(Module.UI.controlKit)
+
+    implementation Libs.Hilt.implementation
+    kapt Libs.Hilt.kapt
+
+    implementation Libs.AndroidX.androidXCore
+    implementation Libs.AndroidX.AppCompat.androidXAppCompat
+
+    implementation Libs.AndroidX.fragment
+    implementation Libs.AndroidX.constraintLayout
+
+    implementation Libs.AndroidX.Lifecycle.common
+    implementation Libs.AndroidX.Lifecycle.runtime
+
+    implementation Libs.AndroidX.Lifecycle.viewModel
+    implementation Libs.AndroidX.Lifecycle.viewModelSavedState
+
+    implementation Libs.material
+}

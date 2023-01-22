@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">discover</string>
+    <string name="search_images">Search Images</string>
+    <string name="discover">Discover</string>
 </resources>

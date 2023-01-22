@@ -21,13 +21,16 @@ include ':app',
         ':services',
         ':utils',
         ':feature',
-        ':ui'
+        ':ui',
+        ':common'
 
 include ':feature:dashboard',
         ':feature:discover',
-        ':feature:favorites'
+        ':feature:saved',
+        ':feature:image-detail'
 
 include ':services:android-services'
 include ':ui:design-system'
 include ':ui:control-kit'
 
+include ':common:navigation'

@@ -10,6 +10,6 @@ interface PhotoApi {
     @GET(".")
     suspend fun searchPhotos(
         @Query("text") searchText: String,
-        @Query("page") page: Int
+        @Query("page") page: Long?
     ): PhotoResponse<PhotoListDto>
 }

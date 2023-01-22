@@ -39,7 +39,7 @@ class SignalToolbar @JvmOverloads constructor(
     }
 
     private fun inflateLayout() {
-        val content = View.inflate(context, R.layout.baraka_toolbar, this)
+        val content = View.inflate(context, R.layout.signal_toolbar, this)
 
         txtPrimaryTitle = content.findViewById(R.id.primary_title)
         primaryToolbar = content.findViewById(R.id.primary_toolbar)

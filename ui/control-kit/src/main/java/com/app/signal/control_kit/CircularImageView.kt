@@ -3,22 +3,15 @@ package com.app.signal.control_kit
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.util.AttributeSet
-import android.view.Gravity
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.view.isGone
 import com.app.signal.control_kit.ex.*
 import com.app.signal.design_system.R
-import com.app.signal.design_system.TextAppearance
 import com.app.signal.design_system.ThemeColor
-import com.app.signal.design_system.Weight
-import com.app.signal.utils.model.Img
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -62,7 +55,6 @@ class CircularImageView @JvmOverloads constructor(
         }
 
     private val imageView: ShapeableImageView
-    private val txtInitials: AppCompatTextView
 
     init {
         imageView = ShapeableImageView(context).also {
@@ -86,37 +78,11 @@ class CircularImageView @JvmOverloads constructor(
             )
         }
 
-        txtInitials = AppCompatTextView(context).also {
-            it.gravity = Gravity.CENTER
-
-            it.setTextColor(ThemeColor.Content.Normal)
-            it.setTextAppearance(TextAppearance.H4(Weight.SemiBold))
-
-            it.isGone = true
-
-            addView(
-                it,
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT
-            )
-        }
-
         hasBorder = true
         hasBackground = true
     }
 
-    fun loadImage(img: Img) {
-        imageView.loadImg(img)
-    }
-
-    fun loadImage(uri: Uri?, initials: String? = null, mode: FillMode = FillMode.CenterInside) {
+    fun loadImage(uri: Uri?, mode: FillMode = FillMode.CenterInside) {
         imageView.loadImage(uri, mode)
-
-        if (uri != null) {
-            txtInitials.isGone = true
-        } else {
-            txtInitials.isGone = false
-            txtInitials.text = initials
-        }
     }
 }

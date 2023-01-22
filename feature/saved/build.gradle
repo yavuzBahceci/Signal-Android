@@ -49,6 +49,7 @@ dependencies {
 
     implementation project(Module.UI.designSystem)
     implementation project(Module.UI.controlKit)
+    implementation project(Module.UI.alertSheet)
 
     implementation Libs.Hilt.implementation
     kapt Libs.Hilt.kapt

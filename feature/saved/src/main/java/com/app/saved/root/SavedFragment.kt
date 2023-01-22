@@ -10,17 +10,26 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.app.alert_sheet.presentAlert
+import com.app.navigation.router.ImageDetailRouter
 import com.app.saved.root.adapter.SavedAdapter
+import com.app.saved.root.model.SavedAction
 import com.app.saved.root.model.SavedItem
 import com.app.signal.control_kit.IndicatorView
+import com.app.signal.control_kit.ex.present
+import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
 import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
+import com.app.signal.control_kit.fragment.ex.promptToast
+import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
 import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
+import com.app.signal.domain.model.State
 import com.app.signal.saved.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved),
@@ -30,6 +39,9 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
     private lateinit var savedRv: RecyclerView
 
     private lateinit var _indicatorView: IndicatorView
+
+    @Inject
+    lateinit var _imageDetailRouter: ImageDetailRouter
 
     override fun resetScroll() {
         savedRv.smoothScrollToPosition(0)
@@ -100,8 +112,41 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
         }
     }
 
-    private fun handleSelection(item: SavedItem) {
-        vm.deletePhoto(item.id) // collect
+    private fun handleSelection(action: SavedAction) {
+        when (action) {
+            is SavedAction.Delete -> onDeletePhoto(action.photo.id)
+            is SavedAction.Select -> toImageDetail(action.photo)
+        }
+    }
+
+    private fun toImageDetail(photo: SavedItem.Photo) {
+        photo.image?.largeImageUrl?.let {
+            _imageDetailRouter.getImageDetailFragment(photo.title, it)
+        }?.let {
+            requireRouterFragmentManager().present(it)
+        }
+    }
+
+    private fun onDeletePhoto(id: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            vm.deletePhoto(id).collect { state ->
+                when (state) {
+                    is State.Success -> onPhotoDeleted()
+                    is State.Error -> presentAlert(throwable = state.cause)
+
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun onPhotoDeleted() {
+        promptToast(getString(R.string.image_deleted))
+        refreshSavedPhotos()
+    }
+
+    private fun refreshSavedPhotos() {
+        vm.refreshTrigger()
     }
 
 }

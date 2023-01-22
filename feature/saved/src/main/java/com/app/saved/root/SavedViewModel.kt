@@ -2,6 +2,7 @@ package com.app.saved.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.saved.root.model.SavedAction
 import com.app.saved.root.model.SavedItem
 import com.app.signal.domain.model.State
 import com.app.signal.domain.model.mapStateListItem
@@ -11,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import java.time.Instant
 import javax.inject.Inject
 
 
@@ -20,7 +22,8 @@ internal data class SavedViewModel @Inject constructor(
     private val photoService: PhotoService
 ) : ViewModel() {
 
-    private val _actionFlow = MutableSharedFlow<SavedItem>(0, 1)
+    private val _actionFlow = MutableSharedFlow<SavedAction>(0, 1)
+    private val _refreshTrigger = MutableStateFlow(Instant.now())
 
     fun deletePhoto(photoId: String): StateFlow<State<Unit>> {
         return photoService.deletePhoto(photoId)
@@ -29,21 +32,26 @@ internal data class SavedViewModel @Inject constructor(
     }
 
 
-    val savedPhotos = photoService.getSavedPhotos()
-        .mapStateListItem {
-            SavedItem.Photo(
-                it.id,
-                it.title,
-                it.img,
-                _actionFlow,
-            )
-        }.map { it.data }
-        .flowOn(Dispatchers.IO)
+    val savedPhotos = _refreshTrigger.flatMapLatest {
+        photoService.getSavedPhotos()
+            .mapStateListItem {
+                SavedItem.Photo(
+                    it.id,
+                    it.title,
+                    it.img,
+                    _actionFlow,
+                )
+            }.map { it.data }
+    }.flowOn(Dispatchers.IO)
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
 
-    fun getActionFlow(): SharedFlow<SavedItem> {
+    fun getActionFlow(): SharedFlow<SavedAction> {
         return _actionFlow
+    }
+
+    fun refreshTrigger() {
+        _refreshTrigger.value = Instant.now()
     }
 
 

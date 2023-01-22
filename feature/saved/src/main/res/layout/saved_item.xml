@@ -32,7 +32,7 @@
         android:textAlignment="viewStart"
         android:textDirection="rtl"
 
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/delete_button"
         app:layout_constraintBottom_toTopOf="@id/txt_image_title"
 
         app:layout_constraintStart_toEndOf="@id/img_thumbnail"
@@ -53,10 +53,22 @@
 
         android:textDirection="locale"
 
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/delete_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/txt_image_id"
         app:layout_constraintTop_toBottomOf="@id/txt_image_id" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/delete_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/img_dim_large"
+        android:layout_height="@dimen/img_dim_large"
+        android:layout_marginEnd="@dimen/spacing_md"
+        android:background="@drawable/shape_circle_primary"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_delete"
+        app:tint="@color/content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

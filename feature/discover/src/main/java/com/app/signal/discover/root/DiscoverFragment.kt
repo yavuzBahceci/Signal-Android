@@ -15,6 +15,7 @@ import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
 import com.app.navigation.router.SavedRouter
 import com.app.signal.control_kit.IndicatorView
+import com.app.signal.control_kit.ex.present
 import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.field.SearchField
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
@@ -223,7 +224,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
 
         photo.image?.largeImageUrl?.let {
             _imageDetailRouter.getImageDetailFragment(photo.title, it).let {
-                requireRouterFragmentManager().push(fragment = it)
+                requireRouterFragmentManager().present(fragment = it)
             }
         }
     }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">saved</string>
     <string name="saved">Saved</string>
+    <string name="image_deleted">Image Deleted</string>
 </resources>

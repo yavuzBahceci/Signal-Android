@@ -10,7 +10,7 @@ sealed class SavedItem(open val id: String) {
         override val id: String,
         val title: String,
         val image: Image?,
-        val actionFlow: MutableSharedFlow<SavedItem>,
+        val actionFlow: MutableSharedFlow<SavedAction>,
     ) : SavedItem("PHOTO_$id")
 
 

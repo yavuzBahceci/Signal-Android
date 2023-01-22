@@ -1,39 +1,22 @@
-package com.app.signal.discover.root
+package com.app.signal.discover.root.adapter
 
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 import com.app.signal.control_kit.CircularImageView
-import com.app.signal.control_kit.recycler_view.adapter.AnyAdapter
+import com.app.signal.control_kit.recycler_view.adapter.StatefulAdapter
 import com.app.signal.control_kit.recycler_view.adapter.ViewHolder
 import com.app.signal.discover.R
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 
-internal class DiscoverAdapter : AnyAdapter<DiscoverItem>(DiscoverItem.DIFF) {
+internal class DiscoverAdapter : StatefulAdapter<DiscoverItem>(DiscoverItem.DIFF) {
     init {
-        bind(
-            R.layout.discover_header_item, ::HeaderHolder
-        )
         bind(
             R.layout.discover_photo_item, ::RowHolder
         )
     }
 
-    override fun getItemViewType(model: DiscoverItem) = when (model) {
-        is DiscoverItem.Header -> R.layout.discover_header_item
-        is DiscoverItem.Photo -> R.layout.discover_photo_item
-    }
-}
-
-private class HeaderHolder(itemView: View) :
-    ViewHolder<DiscoverItem.Header>(itemView) {
-    private val txtTitle: AppCompatTextView =
-        itemView.findViewById(R.id.txt_title)
-
-    override fun bind(item: DiscoverItem.Header) {
-        txtTitle.setText(item.titleRes)
-    }
+    override fun getItemViewType(model: DiscoverItem) = R.layout.discover_photo_item
 }
 
 

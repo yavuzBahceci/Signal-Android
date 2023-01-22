@@ -6,19 +6,13 @@ import com.app.signal.domain.model.photo.Image
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-sealed class DiscoverItem(val type: String) {
-    val stableId: Long = type.hashCode().toLong()
-
-    data class Header(
-        @StringRes val titleRes: Int,
-    ) : DiscoverItem("HEADER")
+sealed class DiscoverItem(open val id: String) {
 
     data class Photo(
-        val id: String,
+        override val id: String,
         val title: String,
         val image: Image?,
         val actionFlow: MutableSharedFlow<DiscoverAction>,
-        val scope: CoroutineScope
     ) : DiscoverItem("PHOTO_$id")
 
 
@@ -28,14 +22,14 @@ sealed class DiscoverItem(val type: String) {
                 oldItem: DiscoverItem,
                 newItem: DiscoverItem
             ): Boolean {
-                return oldItem.stableId == newItem.stableId
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(
                 oldItem: DiscoverItem,
                 newItem: DiscoverItem
             ): Boolean {
-                return oldItem.stableId == newItem.stableId
+                return oldItem.id == newItem.id
             }
         }
     }

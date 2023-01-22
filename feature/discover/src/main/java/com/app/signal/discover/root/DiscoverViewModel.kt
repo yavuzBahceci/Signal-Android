@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
+import com.app.signal.discover.root.model.SearchItem
 import com.app.signal.discover.utils.cursorFlow
 import com.app.signal.domain.form.photo.SearchQueryParams
-import com.app.signal.domain.model.State
 import com.app.signal.domain.model.mapStateListItem
-import com.app.signal.domain.model.mapStateOnSuccess
 import com.app.signal.domain.service.PhotoService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +30,7 @@ internal data class DiscoverViewModel @Inject constructor(
     val itemsFlow: Flow<List<DiscoverItem>?>
 
     init {
-        val loadMore = _loadMoreFlow.map {  }
+        val loadMore = _loadMoreFlow.map { }
 
         itemsFlow = _searchStateFlow.debounce(2000)
             .distinctUntilChanged()
@@ -39,10 +38,12 @@ internal data class DiscoverViewModel @Inject constructor(
                 cursorFlow(
                     trigger = loadMore,
                     request = {
-                        photoService.searchPhotos(SearchQueryParams(
-                            searchText = searchText,
-                            page = it
-                        ))
+                        photoService.searchPhotos(
+                            SearchQueryParams(
+                                searchText = searchText,
+                                page = it
+                            )
+                        )
                     }
                 )
             }.mapStateListItem {
@@ -51,10 +52,18 @@ internal data class DiscoverViewModel @Inject constructor(
                     it.title,
                     it.img,
                     _actionFlow,
-                    viewModelScope
                 )
             }.map { it.data }
     }
+
+
+    val recentSearches = photoService.observePreviousSearches()
+        .map { textList ->
+            textList.map {
+                SearchItem(it, _actionFlow)
+            }.filter { it.text.isNotEmpty() }
+        }.flowOn(Dispatchers.IO)
+        .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     fun triggerSearch(text: String) {
         _searchStateFlow.value = text

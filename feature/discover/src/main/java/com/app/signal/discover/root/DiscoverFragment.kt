@@ -13,29 +13,39 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.navigation.router.ImageDetailRouter
 import com.app.signal.control_kit.IndicatorView
-import com.app.signal.control_kit.ex.updateMargins
+import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.field.SearchField
-import com.app.signal.control_kit.fragment.ActionBarFragment
+import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
+import com.app.signal.control_kit.fragment.ScrollableFragment
 import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
 import com.app.signal.control_kit.fragment.ex.focusKeyboard
+import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
 import com.app.signal.control_kit.recycler_view.EndlessRecyclerViewScrollListener
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
 import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
 import com.app.signal.design_system.R.*
 import com.app.signal.discover.R
+import com.app.signal.discover.root.adapter.DiscoverAdapter
+import com.app.signal.discover.root.adapter.SearchesAdapter
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
+import com.app.signal.domain.model.photo.Photo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import loadAttrDimension
 import javax.inject.Inject
 
 @AndroidEntryPoint
-internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) {
+internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_discover),
+    ScrollableFragment {
     private val vm: DiscoverViewModel by viewModels()
 
     private lateinit var _fieldSearch: SearchField
-    private lateinit var _rv: RecyclerView
+    private lateinit var discoverRv: RecyclerView
+    private lateinit var searchRv: RecyclerView
+
+    private lateinit var loadMoreListener: EndlessRecyclerViewScrollListener
+
     private lateinit var _indicatorView: IndicatorView
 
     @Inject
@@ -51,21 +61,14 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
             }
         }
 
-        val layout = LinearLayoutManager(view.context)
+        val layoutDiscover = LinearLayoutManager(view.context)
+        val layoutSearch = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        _rv = view.findViewById(R.id.recycler_view)
-        _rv.also {
-            it.layoutManager = layout
 
-            it.setHasFixedSize(true)
-            it.setItemViewCacheSize(6)
+        discoverRv = view.findViewById(R.id.discover_rv)
+        searchRv = view.findViewById(R.id.search_rv)
 
-            it.addItemDecoration(
-                MarginDecoration(
-                    ctx = it.context,
-                    horizontalResId = dimen.spacing_md
-                )
-            )
+        discoverRv.also {
 
             it.addItemDecoration(
                 SpacingDecoration(
@@ -74,17 +77,39 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
                 )
             )
 
+            it.addItemDecoration(
+                MarginDecoration(
+                    ctx = it.context,
+                    horizontalResId = dimen.spacing_md
+                )
+            )
+
             it.adapter = DiscoverAdapter()
-
-            val loadMoreListener = object : EndlessRecyclerViewScrollListener(layout) {
-                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                    vm.triggerToLoadMore()
-                    println("!!!!!!!! On Load More")
-                }
-            }
-
-            it.addOnScrollListener(loadMoreListener)
+            it.layoutManager = layoutDiscover
         }
+
+        searchRv.also {
+
+            it.setHasFixedSize(true)
+
+            it.addItemDecoration(
+                SpacingDecoration(
+                    ctx = it.context,
+                    spacingRes = dimen.spacing_xxs
+                )
+            )
+
+            it.adapter = SearchesAdapter()
+            it.layoutManager = layoutSearch
+        }
+
+        loadMoreListener = object : EndlessRecyclerViewScrollListener(layoutDiscover) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                vm.triggerToLoadMore()
+            }
+        }
+
+        discoverRv.addOnScrollListener(loadMoreListener)
 
         _indicatorView = view.findViewById(R.id.indicator_view)
 
@@ -95,11 +120,12 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
             toolbar.updatePadding(top = insets.top)
 
             _fieldSearch.doOnPreDraw {
-                _rv.updateMargins(
-                    top = it.height / 2
-                )
 
-                _rv.updatePadding(
+                searchRv.updatePadding(
+                    top = it.height,
+                    bottom = insets.bottom + spacing
+                )
+                discoverRv.updatePadding(
                     top = it.height,
                     bottom = insets.bottom + spacing
                 )
@@ -117,6 +143,8 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
         if (_fieldSearch.text.isNullOrEmpty()) {
             focusKeyboard(_fieldSearch)
         }
+
+
     }
 
     private fun bindFlows() {
@@ -129,15 +157,17 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
         }
     }
 
-    private fun bindLastSearchesFlow() {
-
+    private suspend fun bindLastSearchesFlow() {
+        val adapter = searchRv.adapter as SearchesAdapter
+        vm.recentSearches.collect {
+            it?.let { it1 -> adapter.submit(it1) }
+        }
     }
 
     private suspend fun bindItemsFlow() {
-        val discoverAdapter = _rv.adapter as DiscoverAdapter
+        val adapter = discoverRv.adapter as DiscoverAdapter
         vm.itemsFlow.collect {
-            println("!!!!!!!! Items Flow !!!!!!! $it")
-            it?.let { it1 -> discoverAdapter.submit(it1) }
+            it?.let { it1 -> adapter.submit(it1) }
         }
     }
 
@@ -149,6 +179,7 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
         when (item) {
             is DiscoverAction.Select -> toImageDetail(item.photo)
             is DiscoverAction.Save -> saveImage(item.photo)
+            is DiscoverAction.Search -> vm.triggerSearch(item.searchText)
         }
     }
 
@@ -156,10 +187,22 @@ internal class DiscoverFragment : ActionBarFragment(R.layout.fragment_discover) 
         TODO("")
     }
 
+    private fun updateToolbar(dy: Int) {
+        val distance = toolbar.height.toFloat()
+        toolbar.updateToolbarProgress(dy.toFloat() / distance)
+    }
+
+    override fun resetScroll() {
+        discoverRv.smoothScrollToPosition(0)
+    }
+
     private fun toImageDetail(photo: DiscoverItem.Photo) {
 
-        println("!!!!!!! To Image Detail $photo")
-        //val fragment = _imageDetailRouter.getImageDetailFragment()
-        // requireRouterFragmentManager().push(fragment = )
+        photo.image?.largeImageUrl?.let {
+            _imageDetailRouter.getImageDetailFragment(photo.title, it).let {
+                requireRouterFragmentManager().push(fragment = it)
+            }
+
+        }
     }
 }

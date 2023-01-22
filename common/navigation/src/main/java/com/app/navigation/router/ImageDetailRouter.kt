@@ -1,8 +1,8 @@
 package com.app.navigation.router
 
+import android.net.Uri
 import androidx.fragment.app.Fragment
-import com.app.signal.domain.model.photo.Photo
 
 interface ImageDetailRouter {
-    fun getImageDetailFragment(photo: Photo): Fragment
+    fun getImageDetailFragment(title: String, uri: Uri): Fragment
 }

@@ -45,6 +45,8 @@ abstract class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener
         var lastVisibleItemPosition = 0
         val totalItemCount = mLayoutManager.itemCount
 
+        println("Total Item count !!!!!!! $totalItemCount")
+
         when (val manager = mLayoutManager) {
             is StaggeredGridLayoutManager -> {
                 val lastVisibleItemPositions = manager.findLastVisibleItemPositions(null)

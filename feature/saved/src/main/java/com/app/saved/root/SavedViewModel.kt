@@ -10,20 +10,18 @@ import com.app.signal.domain.service.PhotoService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
-import java.time.Instant
 import javax.inject.Inject
 
 
-@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 internal data class SavedViewModel @Inject constructor(
     private val photoService: PhotoService
 ) : ViewModel() {
 
     private val _actionFlow = MutableSharedFlow<SavedAction>(0, 1)
-    private val _refreshTrigger = MutableStateFlow(Instant.now())
+    private val _refreshTrigger = MutableStateFlow(System.currentTimeMillis())
 
     fun deletePhoto(photoId: String): StateFlow<State<Unit>> {
         return photoService.deletePhoto(photoId)
@@ -51,7 +49,7 @@ internal data class SavedViewModel @Inject constructor(
     }
 
     fun refreshTrigger() {
-        _refreshTrigger.value = Instant.now()
+        _refreshTrigger.value = System.currentTimeMillis()
     }
 
 

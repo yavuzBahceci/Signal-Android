@@ -17,7 +17,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.time.Instant
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -27,7 +26,7 @@ internal data class DiscoverViewModel @Inject constructor(
 ) : ViewModel() {
     private val _searchStateFlow = MutableStateFlow("")
     private val _actionFlow = MutableSharedFlow<DiscoverAction>(0, 1)
-    private val _loadMoreFlow = MutableSharedFlow<Instant>(replay = 1)
+    private val _loadMoreFlow = MutableSharedFlow<Long>(replay = 1)
 
     val itemsFlow: Flow<State<List<DiscoverItem>>?>
 
@@ -73,7 +72,7 @@ internal data class DiscoverViewModel @Inject constructor(
 
     fun triggerToLoadMore() {
         viewModelScope.launch {
-            _loadMoreFlow.emit(Instant.now())
+            _loadMoreFlow.emit(System.currentTimeMillis())
         }
     }
 

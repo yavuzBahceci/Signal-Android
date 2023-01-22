@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorSheetForegroundColor" type="color|reference"/>
+
+    <attr name="colorSystemMenuBackground" type="color|reference"/>
+    <attr name="colorSystemMenuBorder" type="color|reference"/>
+    <attr name="colorSystemMenuDarkTranslucent" type="color|reference"/>
+    <attr name="colorSystemMenuFallback" type="color|reference"/>
+
+    <!-- Typography Attributes   -->
+
+
+    <attr name="textAppearanceH1_Regular" type="font|reference"/>
+    <attr name="textAppearanceH1_SemiBold" type="font|reference"/>
+
+    <attr name="textAppearanceH2_Regular" type="font|reference"/>
+    <attr name="textAppearanceH2_SemiBold" type="font|reference"/>
+
+
+    <attr name="textAppearanceH4_Regular" type="font|reference"/>
+    <attr name="textAppearanceH4_SemiBold" type="font|reference"/>
+
+    <attr name="textAppearanceH3_Regular" type="font|reference"/>
+    <attr name="textAppearanceH3_SemiBold" type="font|reference"/>
+
+    <attr name="textAppearanceBody1_Regular" type="font|reference"/>
+    <attr name="textAppearanceBody1_SemiBold" type="font|reference"/>
+
+    <attr name="textAppearanceBody2_Regular" type="font|reference"/>
+    <attr name="textAppearanceBody2_SemiBold" type="font|reference"/>
+
+    <attr name="textAppearanceFootnote_Regular" type="font|reference"/>
+    <attr name="textAppearanceFootnote_SemiBold" type="font|reference"/>
+
+    <!-- Button Styles Attributes   -->
+
+    <attr name="buttonStyleContained" type="reference"/>
+    <attr name="buttonStyleDark" type="reference"/>
+    <attr name="buttonStyleText" type="reference"/>
+    <attr name="buttonStyleOutlined" type="reference"/>
+</resources>

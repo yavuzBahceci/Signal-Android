@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="background">@color/background_primary</item>
+
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+
+        <item name="homeAsUpIndicator">@drawable/ic_back</item>
+
+        <item name="android:textColor">@color/content</item>
+
+        <item name="colorPrimary">@color/solid_green</item>
+        <item name="colorAccent">@color/solid_green</item>
+
+        <item name="colorSystemMenuBackground">@color/system_menu_background</item>
+        <item name="colorSystemMenuBorder">@color/system_menu_border</item>
+        <item name="colorSystemMenuDarkTranslucent">@color/system_menu_dark_translucent</item>
+        <item name="colorSystemMenuFallback">@color/system_menu_fallback</item>
+
+        <item name="colorSheetForegroundColor">@color/sheet_foreground_color</item>
+
+        <item name="colorControlNormal">@color/solid_green</item>
+        <item name="colorControlHighlight">@color/content_10</item>
+
+        <item name="appBarLayoutStyle">@style/Signal.AppBar</item>
+        <item name="toolbarStyle">@style/Signal.Toolbar</item>
+        <item name="bottomNavigationStyle">@style/Signal.BottomNavigation</item>
+        <item name="tabStyle">@style/TabBarLayoutStyle</item>
+
+        <item name="buttonStyleContained">@style/Signal.Button.Contained</item>
+        <item name="buttonStyleText">@style/Signal.Button.Text</item>
+        <item name="buttonStyleOutlined">@style/Signal.Button.Outlined</item>
+        <item name="buttonStyleDark">@style/Signal.Button.Dark</item>
+
+        <!--  H1 -->
+
+        <item name="textAppearanceHeadline1">@style/TextAppearance.H1.SemiBold</item>
+        <item name="textAppearanceH1_Regular">@style/TextAppearance.H1.Regular</item>
+        <item name="textAppearanceH1_SemiBold">@style/TextAppearance.H1.SemiBold</item>
+
+        <!--  H2 -->
+
+        <item name="textAppearanceHeadline2">@style/TextAppearance.H2.SemiBold</item>
+        <item name="textAppearanceH2_Regular">@style/TextAppearance.H2.Regular</item>
+        <item name="textAppearanceH2_SemiBold">@style/TextAppearance.H2.SemiBold</item>
+
+        <!--  H3 -->
+
+        <item name="textAppearanceHeadline3">@style/TextAppearance.H3.SemiBold</item>
+        <item name="textAppearanceH3_Regular">@style/TextAppearance.H3.Regular</item>
+        <item name="textAppearanceH3_SemiBold">@style/TextAppearance.H3.SemiBold</item>
+
+        <!--  H4 -->
+
+        <item name="textAppearanceHeadline4">@style/TextAppearance.H4.SemiBold</item>
+        <item name="textAppearanceH4_Regular">@style/TextAppearance.H4.Regular</item>
+        <item name="textAppearanceH4_SemiBold">@style/TextAppearance.H4.SemiBold</item>
+
+        <!--  H6 -->
+
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Body1.SemiBold</item>
+
+        <!--  Body 1 -->
+
+        <item name="textAppearanceBody1">@style/TextAppearance.Body1.SemiBold</item>
+        <item name="textAppearanceBody1_Regular">@style/TextAppearance.Body1.Regular</item>
+        <item name="textAppearanceBody1_SemiBold">@style/TextAppearance.Body1.SemiBold</item>
+
+        <!--  Body 2 -->
+
+        <item name="textAppearanceBody2">@style/TextAppearance.Body2.SemiBold</item>
+        <item name="textAppearanceBody2_Regular">@style/TextAppearance.Body2.Regular</item>
+        <item name="textAppearanceBody2_SemiBold">@style/TextAppearance.Body2.SemiBold</item>
+
+        <!--  Body 2 -->
+
+        <item name="textAppearanceCaption">@style/TextAppearance.Footnote.SemiBold</item>
+        <item name="textAppearanceFootnote_Regular">@style/TextAppearance.Footnote.Regular</item>
+        <item name="textAppearanceFootnote_SemiBold">@style/TextAppearance.Footnote.SemiBold</item>
+
+        <item name="android:actionMenuTextAppearance">@style/LowerCaseMenuTextAppearance</item>
+    </style>
+
+    <style name="LowerCaseMenuTextAppearance" parent="android:TextAppearance.Holo.Widget.ActionBar.Menu">
+        <item name="android:textAppearance">@style/TextAppearance.Body2.Regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:capitalize">none</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/content_50</item>
+    </style>
+
+    <style name="Signal.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/background_primary</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="titleCentered">true</item>
+        <item name="titleTextAppearance">?textAppearanceBody1_SemiBold</item>
+        <item name="titleTextColor">@color/content</item>
+
+        <item name="subtitleCentered">true</item>
+        <item name="subtitleTextAppearance">?textAppearanceFootnote_SemiBold</item>
+        <item name="subtitleTextColor">@color/content_50</item>
+
+        <item name="android:textColorPrimary">@color/content</item>
+        <item name="android:textColorSecondary">@color/content</item>
+        <item name="android:tint">@color/content</item>
+
+        <item name="colorOnPrimary">@color/content</item>
+        <item name="colorOnSecondary">@color/content</item>
+        <item name="navigationIconTint">@color/content</item>
+
+        <item name="materialThemeOverlay">@style/Signal.Toolbar.MaterialThemeOverlay</item>
+    </style>
+
+
+    <style name="Signal.Toolbar.Secondary" parent="Signal.Toolbar">
+        <item name="android:background">@color/background_secondary</item>
+    </style>
+
+    <style name="Signal.Toolbar.MaterialThemeOverlay" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorControlNormal">@color/content</item>
+        <item name="actionMenuTextColor">@color/content</item>
+    </style>
+
+    <style name="Signal.Toolbar.LargeTitle" parent="Signal.Toolbar">
+        <item name="titleCentered">false</item>
+        <item name="titleTextAppearance">?textAppearanceH3_SemiBold</item>
+    </style>
+
+    <style name="Signal.Toolbar.Transparent" parent="Signal.Toolbar">
+        <item name="android:outlineProvider">none</item>
+
+        <item name="android:elevation">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Signal.Toolbar.Transparent.Light" parent="Signal.Toolbar.Transparent">
+        <item name="navigationIconTint">@color/solid_white</item>
+    </style>
+
+    <style name="Signal.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@drawable/shape_bottom_nav</item>
+        <item name="elevation">6dp</item>
+        <item name="materialThemeOverlay">@style/Signal.BottomNavigation.ThemeOverlay</item>
+    </style>
+
+    <style name="Signal.BottomNavigation.ThemeOverlay" parent="">
+        <item name="colorPrimary">@color/content</item>
+        <item name="colorOnSurface">@color/content_30</item>
+    </style>
+
+    <style name="TabBarLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/background_primary</item>
+
+        <item name="tabTextAppearance">@style/TextAppearance.Body1.SemiBold</item>
+        <item name="tabTextColor">@color/content_30</item>
+        <item name="tabSelectedTextColor">@color/content</item>
+        <item name="tabIndicatorHeight">@dimen/stroke_thin</item>
+        <item name="tabIndicatorColor">@color/solid_green</item>
+        <item name="tabIndicatorFullWidth">true</item>
+    </style>
+
+    <style name="Signal.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="Signal.Button.Contained" parent="Widget.MaterialComponents.Button">
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:minHeight">@dimen/btn_height</item>
+
+        <item name="android:paddingTop">@dimen/spacing_smm</item>
+        <item name="android:paddingBottom">@dimen/spacing_smm</item>
+        <item name="android:paddingStart">@dimen/spacing_xl</item>
+        <item name="android:paddingEnd">@dimen/spacing_xl</item>
+
+        <item name="android:textAppearance">?textAppearanceBody1_SemiBold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/btn_contained_text_color_selector</item>
+
+        <item name="backgroundTint">@color/btn_contained_bg_color_selector</item>
+
+        <item name="cornerRadius">@dimen/btn_corner_radius</item>
+    </style>
+
+    <style name="Signal.Button.Contained.Compact" parent="Signal.Button.Contained">
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:minHeight">@dimen/btn_height_compact</item>
+        <item name="cornerRadius">@dimen/btn_corner_radius_compact</item>
+
+        <item name="android:paddingTop">@dimen/spacing_sm</item>
+        <item name="android:paddingBottom">@dimen/spacing_sm</item>
+        <item name="android:paddingStart">@dimen/spacing_md</item>
+        <item name="android:paddingEnd">@dimen/spacing_md</item>
+
+        <item name="android:textAppearance">?textAppearanceBody2_SemiBold</item>
+    </style>
+
+    <style name="Signal.Button.Dark" parent="Signal.Button.Contained">
+        <item name="backgroundTint">@color/btn_dark_bg_color_selector</item>
+    </style>
+
+    <style name="Signal.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minHeight">@dimen/btn_height</item>
+
+        <item name="android:singleLine">true</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/content_50</item>
+
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAppearance">?textAppearanceBody2_SemiBold</item>
+
+        <item name="android:background">@null</item>
+        <item name="android:theme">@style/ThemeOverlay.TextButton</item>
+    </style>
+
+    <style name="Signal.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:singleLine">true</item>
+
+        <item name="android:minHeight">@dimen/btn_height</item>
+        <item name="android:minWidth">@dimen/btn_outlined_min_width</item>
+
+        <item name="android:paddingTop">@dimen/spacing_smm</item>
+        <item name="android:paddingBottom">@dimen/spacing_smm</item>
+        <item name="android:paddingStart">@dimen/spacing_xl</item>
+        <item name="android:paddingEnd">@dimen/spacing_xl</item>
+
+        <item name="android:textAppearance">?textAppearanceBody1_SemiBold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="cornerRadius">@dimen/btn_corner_radius</item>
+
+        <item name="strokeColor">@color/content</item>
+        <item name="strokeWidth">@dimen/stroke_regular</item>
+
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Signal.Button.Outlined</item>
+    </style>
+
+    <style name="ThemeOverlay.Signal.Button.Outlined" parent="">
+        <item name="colorPrimary">@color/content</item>
+        <item name="colorOnSurface">@color/content</item>
+    </style>
+
+
+    <style name="Signal.Button.Outlined.Red" parent="Signal.Button.Outlined">
+        <item name="strokeColor">@color/solid_red</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Signal.Button.Outlined.Red</item>
+    </style>
+
+    <style name="ThemeOverlay.Signal.Button.Outlined.Red" parent="">
+        <item name="colorPrimary">@color/solid_red</item>
+        <item name="colorOnSurface">@color/solid_red</item>
+    </style>
+
+    <style name="Signal.Button.Accessory" parent="Signal.Button.Text">
+        <item name="android:minWidth">@null</item>
+        <item name="android:minHeight">@null</item>
+
+        <item name="android:padding">@dimen/spacing_sm</item>
+        <item name="android:textColor">@color/content_50</item>
+
+    </style>
+
+    <style name="ThemeOverlay.TextButton" parent="">
+        <item name="colorPrimary">@color/content</item>
+    </style>
+
+    <style name="ShapeAppearance.RoundedRect" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_radius_small</item>
+    </style>
+
+    <style name="ShapeAppearance.Circle" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+
+    <!-- Calendar   -->
+
+    <style name="AppTheme.Calendar.Fullscreen" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorSurface">@color/background_secondary</item>
+
+        <item name="materialCalendarHeaderTitle">@style/AppTheme.Calendar.HeaderTitle</item>
+        <item name="materialCalendarHeaderSelection">@style/AppTheme.Calendar.HeaderSelection</item>
+        <item name="materialCalendarHeaderCancelButton">@style/AppTheme.Calendar.HeaderCancelButton</item>
+        <item name="materialCalendarHeaderConfirmButton">@style/AppTheme.Calendar.HeaderConfirmButton</item>
+
+        <item name="materialCalendarHeaderLayout">@style/AppTheme.Calendar.HeaderLayout</item>
+        <item name="materialCalendarHeaderToggleButton">@style/AppTheme.Calendar.HeaderToggleButton</item>
+    </style>
+
+    <style name="AppTheme.Calendar.HeaderTitle" parent="Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+        <item name="android:textAppearance">@style/TextAppearance.H4.SemiBold</item>
+        <item name="android:textColor">@color/content</item>
+        <item name="autoSizeMaxTextSize">60sp</item>
+        <item name="autoSizeMinTextSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.Calendar.HeaderCancelButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderCancelButton">
+        <item name="iconTint">@color/content</item>
+    </style>
+
+    <style name="AppTheme.Calendar.HeaderConfirmButton" parent="Signal.Button.Text">
+    </style>
+
+    <style name="AppTheme.Calendar.HeaderSelection" parent="Widget.MaterialComponents.MaterialCalendar.HeaderSelection">
+        <item name="android:textColor">@color/content_50</item>
+    </style>
+
+
+    <style name="AppTheme.Calendar.HeaderLayout" parent="Widget.MaterialComponents.MaterialCalendar.HeaderLayout">
+        <item name="android:background">@color/background_secondary</item>
+    </style>
+
+    <style name="AppTheme.Calendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name= "AppTheme.Calendar.Day" parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="itemTextColor">@color/content</item>
+    </style>
+
+    <style name= "AppTheme.Calendar.Day.Selected" parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="itemFillColor">@color/solid_green</item>
+        <item name="itemTextColor">@color/content</item>
+    </style>
+
+    <style name="SignalAppTheme" parent="AppTheme.Base"/>
+</resources>

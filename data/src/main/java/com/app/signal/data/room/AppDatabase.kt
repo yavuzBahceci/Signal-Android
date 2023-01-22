@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
             jsonConverter: JsonConverters,
         ): AppDatabase {
             return Room
-                .databaseBuilder(ctx, AppDatabase::class.java, "Baraka-db.sqlite")
+                .databaseBuilder(ctx, AppDatabase::class.java, "Signal-db.sqlite")
                 .fallbackToDestructiveMigration()
                 .addTypeConverter(jsonConverter)
                 .build()

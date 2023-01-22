@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="content">#000000</color>
+    <color name="content_50">#80000000</color>
+    <color name="content_30">#4D000000</color>
+    <color name="content_10">#1A000000</color>
+
+    <color name="content_light">#FFFFFF</color>
+
+
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F9F9FA</color>
+    <color name="background_tertiary">#F2F2F2</color>
+
+    <color name="solid_black">#000000</color>
+    <color name="solid_green">#0DDD00</color>
+    <color name="solid_green_10">#1A0DDD00</color>
+    <color name="solid_green_50">#800DDD00</color>
+
+    <color name="solid_grey">#808080</color>
+
+    <color name="solid_red">#FF3317</color>
+    <color name="solid_red_10">#1AFF3317</color>
+    <color name="solid_red_50">#80FF3317</color>
+
+
+    <color name="solid_yellow">#FFCC00</color>
+
+    <color name="solid_white">#FFFFFF</color>
+    <color name="solid_white_10">#1AFFFFFF</color>
+
+
+    <color name="system_menu_border">#ABFFFFFF</color>
+    <color name="system_menu_background">#E6FFFFFF</color>
+    <color name="system_menu_dark_translucent">#99000000</color>
+
+    <!-- API 23 and below   -->
+    <color name="system_menu_fallback">#CC000000</color>
+
+    <!-- Exceptions -->
+    <color name="bottom_navigation_bar_bg_color">#FFFFFF</color>
+
+    <!-- Bottom Sheet   -->
+
+    <color name="sheet_foreground_color">#4D000000</color>
+    <color name="sheet_content_bg_color">#FFFFFF</color>
+
 </resources>

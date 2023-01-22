@@ -19,7 +19,6 @@ include ':app',
         ':domain',
         ':data',
         ':services',
-        ':runtime',
         ':utils',
         ':feature',
         ':ui'

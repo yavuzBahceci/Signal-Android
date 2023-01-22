@@ -1,15 +1,12 @@
+import com.app.signal.buildSrc.Java
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
 
 plugins {
-    id "com.android.library"
-    id "org.jetbrains.kotlin.android"
-    id "dagger.hilt.android.plugin"
-
-    id "kotlin-parcelize"
-    id "kotlinx-serialization"
-    id "kotlin-kapt"
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -42,16 +39,23 @@ dependencies {
 
     coreLibraryDesugaring Libs.Util.desugaring
 
-    implementation project(Module.Core.domain)
+    implementation project(Module.Core.utils)
+    implementation project(Module.UI.designSystem)
 
-    implementation Libs.Kotlin.stdlibJdk8
-    implementation Libs.Kotlin.Coroutines.core
-    implementation Libs.Kotlin.Coroutines.android
-    implementation Libs.Kotlin.serialization
 
+    implementation Libs.AndroidX.androidXCore
     implementation Libs.AndroidX.AppCompat.androidXAppCompat
-    implementation Libs.AndroidX.securityCrypto
 
-    implementation Libs.Hilt.implementation
-    kapt Libs.Hilt.kapt
+    implementation Libs.AndroidX.fragment
+    implementation Libs.AndroidX.constraintLayout
+    implementation Libs.AndroidX.webkit
+    implementation Libs.AndroidX.asyncLayoutInflater
+    implementation Libs.AndroidX.RecyclerView.implementation
+
+    implementation Libs.AndroidX.Lifecycle.runtime
+
+    implementation Libs.material
+
+    implementation Libs.Util.coil
+    implementation Libs.Facebook.shimmer
 }

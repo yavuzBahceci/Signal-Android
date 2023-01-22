@@ -106,6 +106,7 @@ object Libs {
         const val activity = "androidx.activity:activity-ktx:1.7.0-alpha01"
 
         const val fragment = "androidx.fragment:fragment-ktx:1.5.3"
+        const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
 
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"

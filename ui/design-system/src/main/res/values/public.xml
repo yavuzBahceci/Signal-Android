@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public name="spacing_xxxl" type="dimen"/>
+    <public name="spacing_xxl" type="dimen"/>
+    <public name="spacing_xl" type="dimen"/>
+    <public name="spacing_lg" type="dimen"/>
+    <public name="spacing_md" type="dimen"/>
+    <public name="spacing_smm" type="dimen"/>
+    <public name="spacing_sm" type="dimen"/>
+    <public name="spacing_xsm" type="dimen"/>
+    <public name="spacing_xs" type="dimen"/>
+
+    <public name="bottom_nav_height" type="dimen"/>
+
+
+    <public name="colorBackgroundPrimary" type="color"/>
+    <public name="colorBackgroundSecondary" type="color"/>
+    <public name="colorBackgroundTertiary" type="color"/>
+</resources>

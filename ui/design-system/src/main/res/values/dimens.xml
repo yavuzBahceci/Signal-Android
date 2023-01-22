@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Z INDEX   -->
+    <dimen name="z_index_toolbar">8dp</dimen>
+
+    <!-- Spacing -->
+    <dimen name="spacing_xxxl">32dp</dimen>
+    <dimen name="spacing_xxl">28dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_lg">20dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_smm">12dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_xsm">6dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_zero">0dp</dimen>
+    <dimen name="hundred_dp">100dp</dimen>
+    <dimen name="fifty_dp">50dp</dimen>
+
+    <!-- Corner Radius   -->
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius_medium">12dp</dimen>
+    <dimen name="corner_radius_large">24dp</dimen>
+
+    <!-- Button   -->
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_corner_radius">22dp</dimen>
+
+    <dimen name="btn_height_compact">32dp</dimen>
+    <dimen name="btn_corner_radius_compact">16dp</dimen>
+
+
+    <dimen name="btn_outlined_min_width">106dp</dimen>
+
+
+    <dimen name="icon_btn_dim">40dp</dimen>
+
+    <!-- Border   -->
+    <dimen name="stroke_thin">1dp</dimen>
+    <dimen name="stroke_regular">2dp</dimen>
+    <dimen name="stroke_medium">4dp</dimen>
+    <dimen name="stroke_large">7dp</dimen>
+
+    <!-- Bottom Nav   -->
+    <dimen name="bottom_nav_height">52dp</dimen>
+    <dimen name="bottom_nav_corner_radius">26dp</dimen>
+
+    <dimen name="field_min_height">64dp</dimen>
+
+    <!-- Stock Logo   -->
+
+    <dimen name="stock_logo_width">48dp</dimen>
+    <dimen name="stock_logo_height">48dp</dimen>
+
+    <!-- Image Sizes   -->
+    <dimen name="img_dim_small">20dp</dimen>
+    <dimen name="img_dim_medium">24dp</dimen>
+    <dimen name="img_dim_large">48dp</dimen>
+
+    <!-- Grip   -->
+
+    <dimen name="grip_width">55dp</dimen>
+    <dimen name="grip_height">4dp</dimen>
+
+    <!-- Section -->
+
+    <dimen name="section_height">8dp</dimen>
+
+    <!-- Checkbox   -->
+
+    <dimen name="checkbox_size">18dp</dimen>
+    <dimen name="checkbox_size_internal">12dp</dimen>
+    <dimen name="checkbox_corner_radius">2dp</dimen>
+
+</resources>

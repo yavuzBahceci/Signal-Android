@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="dimen" name="elevation" />
+    <public type="dimen" name="elevation_toolbar" />
+    <public type="dimen" name="elevation_loading_indicator" />
+    <public type="dimen" name="elevation_fragment" />
+    <public type="dimen" name="elevation_sheet" />
+</resources>

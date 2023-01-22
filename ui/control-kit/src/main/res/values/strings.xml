@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">control-kit</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="price_view_performance">%1$s (%2$s)</string>
+
+    <string name="forgot_pin_code">Forgot PIN?</string>
+
 </resources>

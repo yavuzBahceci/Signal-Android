@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="elevation">6dp</dimen>
+    <dimen name="elevation_search_field">7dp</dimen>
+    <dimen name="elevation_toolbar">8dp</dimen>
+
+    <dimen name="elevation_loading_indicator">10dp</dimen>
+
+    <dimen name="elevation_fragment">4dp</dimen>
+    <dimen name="elevation_sheet">8dp</dimen>
+
+    <dimen name="ticker_view_logo_dim">20dp</dimen>
+    <dimen name="ticker_view_indicator_dim">14dp</dimen>
+
+    <dimen name="sheet_grip_width">50dp</dimen>
+    <dimen name="sheet_grip_height">4dp</dimen>
+
+    <dimen name="text_field_height">66dp</dimen>
+
+
+    <dimen name="pin_view_dot_radius">7dp</dimen>
+    <dimen name="pin_view_width">220dp</dimen>
+    <dimen name="pin_view_height">110dp</dimen>
+
+    <dimen name="pulse_view_dim">6dp</dimen>
+
+    <dimen name="graph_dot_radius">40dp</dimen>
+</resources>

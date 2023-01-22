@@ -71,6 +71,9 @@ dependencies {
     implementation project(Module.Core.data)
     implementation project(Module.Core.dependencies)
 
+    implementation project(Module.UI.designSystem)
+    implementation project(Module.UI.controlKit)
+
 
     implementation Libs.Kotlin.stdlib
     implementation Libs.Kotlin.Coroutines.core

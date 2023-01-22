@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- H1 -->
+
+    <style name="TextAppearance.H1.Regular" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">64sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.H1.SemiBold" parent="TextAppearance.H1.Regular">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+    <!-- H2 -->
+
+    <style name="TextAppearance.H2.Regular" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.H2.SemiBold" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+    <!-- H3 -->
+
+    <style name="TextAppearance.H3.Regular" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.H3.SemiBold" parent="TextAppearance.H3.Regular">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+    <!-- H4 -->
+
+    <style name="TextAppearance.H4.Regular" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.H4.SemiBold" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+    <!-- Body 1  -->
+
+    <style name="TextAppearance.Body1.Regular" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="android:letterSpacing">@null</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.Body1.SemiBold" parent="TextAppearance.Body1.Regular">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+    <!-- Body 2 -->
+
+    <style name="TextAppearance.Body2.SemiBold" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+
+        <item name="android:letterSpacing">@null</item>
+    </style>
+
+    <style name="TextAppearance.Body2.Regular" parent="TextAppearance.Body2.SemiBold">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextAppearance.Footnote.Regular" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/proxima_nova</item>
+        <item name="android:fontFamily">@font/proxima_nova</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:includeFontPadding">false</item>
+
+        <item name="fontWeight">400</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+
+        <item name="android:letterSpacing">@null</item>
+    </style>
+
+    <style name="TextAppearance.Footnote.SemiBold" parent="TextAppearance.Footnote.Regular">
+        <item name="fontFamily">@font/proxima_nova_semibold</item>
+        <item name="android:fontFamily">@font/proxima_nova_semibold</item>
+
+        <item name="fontWeight">600</item>
+        <item name="android:fontWeight" tools:targetApi="o">600</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+    </style>
+
+
+</resources>

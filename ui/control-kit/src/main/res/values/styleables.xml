@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="error">
+        <attr name="state_error" format="boolean" />
+    </declare-styleable>
+
+    <attr name="hasBackground" format="boolean" />
+    <attr name="enabled" format="boolean" />
+
+    <declare-styleable name="IndicatorView">
+        <attr name="hasBackground"/>
+        <attr name="isActive" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SearchField">
+        <attr name="android:hint" />
+    </declare-styleable>
+
+    <declare-styleable name="TextField">
+        <attr name="android:hint" />
+        <attr name="android:inputType" />
+        <attr name="android:maxLines" />
+        <attr name="android:imeOptions" />
+
+        <attr name="endIconDrawable" />
+        <attr name="endIconTint" />
+
+        <attr name="helperText" />
+
+        <attr name="enabled" />
+        <attr name="hasBackground" />
+    </declare-styleable>
+
+    <declare-styleable name="TickerView">
+        <attr name="hasBackground" />
+    </declare-styleable>
+
+    <declare-styleable name="SheetCoordinatorLayout">
+        <attr name="fitToContent" format="boolean" />
+        <attr name="expanded" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PinView">
+        <attr name="hasBackground" />
+
+        <attr name="dots" format="reference|integer" />
+        <attr name="radius" format="reference|dimension" />
+        <attr name="spacing" format="reference|dimension" />
+
+        <attr name="selectedColor" format="reference|color" />
+        <attr name="unselectedColor" format="reference|color" />
+
+    </declare-styleable>
+
+    <declare-styleable name="PerformanceView">
+        <attr name="contentAlignment">
+            <flag name="start" value="0" />
+            <flag name="end" value="1" />
+        </attr>
+
+        <attr name="priceTextAppearance" format="reference" />
+        <attr name="indicatorTextAppearance" format="reference" />
+
+        <attr name="spacing" />
+        <attr name="showPrice" format="boolean|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SignalToolbar">
+        <attr name="title" format="reference|string"/>
+        <attr name="hasSubtitle" format="boolean"/>
+        <attr name="hasBottomLine" format="boolean"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="TabMenu">
+        <attr name="distributionMode">
+            <flag name="fillEqually" value="0" />
+            <flag name="spaceBetween" value="1" />
+        </attr>
+
+        <attr name="hasUnderline" format="reference|boolean"/>
+        <attr name="underlineHeight" format="reference|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TextButton">
+        <attr name="android:textAppearance" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+
+</resources>

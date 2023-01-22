@@ -29,7 +29,7 @@ internal data class DiscoverViewModel @Inject constructor(
     private val _actionFlow = MutableSharedFlow<DiscoverAction>(0, 1)
     private val _loadMoreFlow = MutableSharedFlow<Instant>(replay = 1)
 
-    val itemsFlow: Flow<List<DiscoverItem>?>
+    val itemsFlow: Flow<State<List<DiscoverItem>>?>
 
     init {
         val loadMore = _loadMoreFlow.map { }
@@ -55,9 +55,8 @@ internal data class DiscoverViewModel @Inject constructor(
                     it.img,
                     _actionFlow,
                 )
-            }.map { it.data }
-            .flowOn(Dispatchers.IO)
-            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+            }.flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())
     }
 
     val recentSearches = photoService.observePreviousSearches()

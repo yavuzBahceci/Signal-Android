@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
-import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.present
 import com.app.signal.control_kit.field.SearchField
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
@@ -22,13 +22,14 @@ import com.app.signal.control_kit.fragment.ex.*
 import com.app.signal.control_kit.recycler_view.EndlessRecyclerViewScrollListener
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
 import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
-import com.app.signal.design_system.R.*
+import com.app.signal.design_system.R.dimen
 import com.app.signal.discover.R
 import com.app.signal.discover.root.adapter.DiscoverAdapter
 import com.app.signal.discover.root.adapter.SearchesAdapter
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.domain.model.State
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import loadAttrDimension
@@ -45,7 +46,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
 
     private lateinit var loadMoreListener: EndlessRecyclerViewScrollListener
 
-    private lateinit var _indicatorView: IndicatorView
+    private lateinit var _indicatorView: CircularProgressIndicator
 
     @Inject
     lateinit var _imageDetailRouter: ImageDetailRouter
@@ -170,7 +171,8 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
     private suspend fun bindItemsFlow() {
         val adapter = discoverRv.adapter as DiscoverAdapter
         vm.itemsFlow.collect {
-            it?.let { it1 -> adapter.submit(it1) }
+            _indicatorView.isVisible = it?.isLoading == true && it.data.isNullOrEmpty()
+            adapter.submit(it?.data ?: emptyList())
         }
     }
 

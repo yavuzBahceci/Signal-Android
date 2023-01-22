@@ -1,24 +1,15 @@
 package com.app.signal.dashboard.activity
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.fragment.RouterFragment
 import com.app.signal.control_kit.fragment.ex.refreshSystemBarStyle
 import com.app.signal.dashboard.R
-import com.app.signal.dashboard.fragment.DashboardBundleKey
 import com.app.signal.dashboard.fragment.DashboardFragment
-import com.app.signal.dashboard.fragment.DashboardFragmentRequestKey
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -29,7 +20,7 @@ class DashboardActivity : AppCompatActivity() {
             return supportFragmentManager.findFragmentById(R.id.app_router_fragment) as RouterFragment
         }
 
-    private lateinit var indicator: IndicatorView
+    private lateinit var indicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

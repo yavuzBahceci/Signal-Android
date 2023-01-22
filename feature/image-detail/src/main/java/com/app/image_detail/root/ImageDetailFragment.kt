@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.loadImage
 import com.app.signal.control_kit.fragment.ActionBarFragment
 import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
-import com.app.signal.design_system.R.*
+import com.app.signal.design_system.R.drawable
 import com.app.signal.image_detail.R
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 private object BundleKey {
     const val TITLE = "BUNDLE_KEY_TITLE"
@@ -23,7 +23,7 @@ private object BundleKey {
 
 open class ImageDetailFragment : ActionBarFragment(R.layout.fragment_image_detail) {
     private lateinit var imageView: ShapeableImageView
-    private lateinit var indicator: IndicatorView
+    private lateinit var indicator: CircularProgressIndicator
     private lateinit var title: TextView
 
     open fun load(uri: Uri) {

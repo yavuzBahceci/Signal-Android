@@ -15,7 +15,6 @@ import com.app.navigation.router.ImageDetailRouter
 import com.app.saved.root.adapter.SavedAdapter
 import com.app.saved.root.model.SavedAction
 import com.app.saved.root.model.SavedItem
-import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.present
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
@@ -24,10 +23,13 @@ import com.app.signal.control_kit.fragment.ex.promptToast
 import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
 import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
+import com.app.signal.design_system.R.dimen
 import com.app.signal.domain.model.State
 import com.app.signal.saved.R
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import loadAttrDimension
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +39,7 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
 
     private lateinit var savedRv: RecyclerView
 
-    private lateinit var _indicatorView: IndicatorView
+    private lateinit var _indicatorView: CircularProgressIndicator
 
     @Inject
     lateinit var _imageDetailRouter: ImageDetailRouter
@@ -63,14 +65,14 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
             it.addItemDecoration(
                 SpacingDecoration(
                     ctx = it.context,
-                    spacingRes = com.app.signal.design_system.R.dimen.spacing_sm
+                    spacingRes = dimen.spacing_sm
                 )
             )
 
             it.addItemDecoration(
                 MarginDecoration(
                     ctx = it.context,
-                    horizontalResId = com.app.signal.design_system.R.dimen.spacing_md
+                    horizontalResId = dimen.spacing_md
                 )
             )
 
@@ -79,11 +81,14 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
 
             _indicatorView = view.findViewById(R.id.indicator_view)
 
+            val spacing =
+                view.context.loadAttrDimension(dimen.spacing_md)
+
             consumeWindowInsets { _, insets ->
                 toolbar.updatePadding(top = insets.top)
 
                 savedRv.updatePadding(
-                    top = it.height,
+                    top = spacing,
                     bottom = insets.bottom
                 )
 

@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layoutDirection="inherit" />
 
-        <com.app.signal.control_kit.IndicatorView
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

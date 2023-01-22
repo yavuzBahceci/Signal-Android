@@ -3,6 +3,7 @@ package com.app.saved.root
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -117,7 +118,8 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
     private suspend fun bindItemsFlow() {
         val adapter = savedRv.adapter as SavedAdapter
         vm.savedPhotos.collect {
-            it?.let { it1 -> adapter.submit(it1) }
+            _indicatorView.isVisible = it.isLoading == true && it.data.isNullOrEmpty()
+            adapter.submit(it.data ?: emptyList())
         }
     }
 
@@ -142,7 +144,6 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
                 when (state) {
                     is State.Success -> onPhotoDeleted()
                     is State.Error -> presentAlert(throwable = state.cause)
-
                     else -> {}
                 }
             }

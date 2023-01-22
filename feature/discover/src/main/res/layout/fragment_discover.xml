@@ -8,10 +8,10 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:hasBottomLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:hasBottomLine="false"
         app:title="@string/discover" />
 
 
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/spacing_md"
-        app:layout_constraintHeight_default="wrap"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/field_search" />
 
@@ -47,18 +47,21 @@
         android:clipToPadding="false"
         android:splitMotionEvents="false"
 
-        app:layout_constraintTop_toBottomOf="@id/search_rv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_rv" />
 
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/indicator_view"
 
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        android:indeterminate="true"
+
+        app:indicatorColor="@color/solid_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

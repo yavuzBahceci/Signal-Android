@@ -41,9 +41,9 @@ internal data class SavedViewModel @Inject constructor(
                     it.img,
                     _actionFlow,
                 )
-            }.map { it.data }
+            }
     }.flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+        .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())
 
 
     fun getActionFlow(): SharedFlow<SavedAction> {

@@ -14,7 +14,6 @@ import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
 import com.app.signal.design_system.R.drawable
 import com.app.signal.image_detail.R
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.progressindicator.CircularProgressIndicator
 
 private object BundleKey {
     const val TITLE = "BUNDLE_KEY_TITLE"
@@ -23,7 +22,6 @@ private object BundleKey {
 
 open class ImageDetailFragment : ActionBarFragment(R.layout.fragment_image_detail) {
     private lateinit var imageView: ShapeableImageView
-    private lateinit var indicator: CircularProgressIndicator
     private lateinit var title: TextView
 
     open fun load(uri: Uri) {
@@ -35,7 +33,6 @@ open class ImageDetailFragment : ActionBarFragment(R.layout.fragment_image_detai
 
         setStartToolbarIcon(drawable.ic_close)
 
-        indicator = view.findViewById(R.id.indicator)
         title = view.findViewById(R.id.title_text)
         imageView = view.findViewById(R.id.image)
 

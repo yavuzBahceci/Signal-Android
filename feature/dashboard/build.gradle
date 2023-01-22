@@ -1,6 +1,7 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
+import com.app.signal.buildSrc.TestLibraries
 
 plugins {
     id "com.android.library"
@@ -38,20 +39,46 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    coreLibraryDesugaring Libs.Util.desugaring
 
+    implementation Libs.AndroidX.androidXCore
+    implementation Libs.AndroidX.AppCompat.androidXAppCompat
+    implementation Libs.AndroidX.AppCompat.resources
+    implementation Libs.material
+    implementation Libs.AndroidX.constraintLayout
+
+    // Move
     implementation project(Module.Core.domain)
+    implementation project(Module.Core.data)
+    implementation project(Module.Core.dependencies)
 
-    implementation Libs.Kotlin.stdlibJdk8
+    implementation project(Module.UI.designSystem)
+    implementation project(Module.UI.controlKit)
+
+    implementation project(Module.Core.utils)
+
+    implementation Libs.Kotlin.stdlib
     implementation Libs.Kotlin.Coroutines.core
     implementation Libs.Kotlin.Coroutines.android
-    implementation Libs.Kotlin.serialization
+    implementation Libs.Kotlin.reflect
 
-    implementation Libs.AndroidX.AppCompat.androidXAppCompat
-    implementation Libs.AndroidX.securityCrypto
+    implementation Libs.AndroidX.androidXCore
+    implementation Libs.AndroidX.activity
+    implementation Libs.AndroidX.fragment
+    implementation Libs.AndroidX.Lifecycle.viewModel
+    implementation Libs.AndroidX.Lifecycle.viewModelSavedState
+    implementation Libs.AndroidX.Lifecycle.runtime
+    implementation Libs.AndroidX.Lifecycle.common
 
+    implementation Libs.AndroidX.constraintLayout
+
+    testImplementation TestLibraries.jUnit
+    androidTestImplementation TestLibraries.androidXJUnit
+    androidTestImplementation TestLibraries.espressoCore
+
+    // HILT
     implementation Libs.Hilt.implementation
+
     kapt Libs.Hilt.kapt
+
 }

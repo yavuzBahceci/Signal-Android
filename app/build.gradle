@@ -52,10 +52,6 @@ android {
     kotlinOptions {
         jvmTarget = Java.jvmTarget
     }
-
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
@@ -70,6 +66,7 @@ dependencies {
     implementation project(Module.Core.domain)
     implementation project(Module.Core.data)
     implementation project(Module.Core.dependencies)
+    implementation project(Feature.dashboard)
 
     implementation project(Module.UI.designSystem)
     implementation project(Module.UI.controlKit)

@@ -1,4 +1,4 @@
-package com.app.dashboard.activity
+package com.app.signal.dashboard.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MainViewModel @Inject constructor(
+internal class DashboardViewModel @Inject constructor(
     private val photoService: PhotoService,
     private val appStorage: AppStorage
 ) : ViewModel() {

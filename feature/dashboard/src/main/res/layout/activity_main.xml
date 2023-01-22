@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:id="@+id/router_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/app_router_fragment"
+            android:name="com.app.signal.control_kit.fragment.RouterFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="inherit" />
+
+        <com.app.signal.control_kit.IndicatorView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

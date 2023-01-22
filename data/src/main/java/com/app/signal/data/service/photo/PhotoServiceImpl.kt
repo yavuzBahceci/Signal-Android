@@ -16,6 +16,10 @@ data class PhotoServiceImpl @Inject constructor(
     private val storage: AppStorage
 ) : PhotoService {
 
+    override fun observePreviousSearches(): Flow<List<String>> {
+        return storage.observePreviousSearches()
+    }
+
     override fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState> {
         saveSearch(searchQueryParams.searchText)
         return photoRepository.getSearchResults(searchQueryParams)
@@ -41,6 +45,7 @@ data class PhotoServiceImpl @Inject constructor(
             currentList.removeLast()
         }
         currentList.add(0, searchText)
+        println("!!!!!!! Save Search $currentList")
         storage.previousSearches = currentList
     }
 }

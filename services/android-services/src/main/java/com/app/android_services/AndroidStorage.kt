@@ -33,7 +33,7 @@ data class AndroidStorage @Inject constructor(
         }
 
     override fun observePreviousSearches(): Flow<List<String>> {
-        return resolveFlow(Key.PreviousSearches, emptyList())
+        return resolveFlow(Key.PreviousSearches, previousSearches)
     }
 
     private val preferences: SharedPreferences
@@ -83,15 +83,7 @@ data class AndroidStorage @Inject constructor(
     }
 
     private inline fun <reified T> observe(key: Key): Flow<T> {
-        return changes
-            .filter {
-                it == key
-            }
-            .map {
-                when (it) {
-                    Key.PreviousSearches -> previousSearches as T
-                }
-            }
+        return changes.filter { it == key }.map { previousSearches as T }
     }
 
     override fun reset() {

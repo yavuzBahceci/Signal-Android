@@ -1,3 +1,5 @@
+import com.app.signal.buildSrc.*
+
 plugins {
     id "com.android.application"
 

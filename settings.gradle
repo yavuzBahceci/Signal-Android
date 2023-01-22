@@ -20,8 +20,15 @@ include ':app',
         ':data',
         ':services',
         ':runtime',
-        ':utils'
-include ':feature'
-include ':feature:dashboard'
-include ':interactors'
+        ':utils',
+        ':feature',
+        ':ui'
+
+include ':feature:dashboard',
+        ':feature:discover',
+        ':feature:favorites'
+
 include ':services:android-services'
+include ':ui:design-system'
+include ':ui:control-kit'
+

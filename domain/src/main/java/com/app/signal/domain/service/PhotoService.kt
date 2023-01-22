@@ -8,6 +8,9 @@ import com.app.signal.domain.repository.UnitState
 import kotlinx.coroutines.flow.Flow
 
 interface PhotoService {
+
+    fun observePreviousSearches(): Flow<List<String>>
+
     fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState>
 
     fun getSavedPhotos(): Flow<PhotosState>

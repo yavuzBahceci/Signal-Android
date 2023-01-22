@@ -56,6 +56,8 @@ internal data class DiscoverViewModel @Inject constructor(
                     _actionFlow,
                 )
             }.map { it.data }
+            .flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
     }
 
     val recentSearches = photoService.observePreviousSearches()

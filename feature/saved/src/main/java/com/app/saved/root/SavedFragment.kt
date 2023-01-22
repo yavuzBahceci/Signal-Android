@@ -17,7 +17,6 @@ import com.app.saved.root.model.SavedAction
 import com.app.saved.root.model.SavedItem
 import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.present
-import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
 import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
@@ -47,6 +46,11 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
         savedRv.smoothScrollToPosition(0)
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshSavedPhotos()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,7 +59,7 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
         savedRv = view.findViewById(R.id.saved_rv)
 
         savedRv.also {
-
+            it.setItemViewCacheSize(24)
             it.addItemDecoration(
                 SpacingDecoration(
                     ctx = it.context,

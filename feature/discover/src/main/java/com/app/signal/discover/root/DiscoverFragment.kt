@@ -13,17 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
-import com.app.navigation.router.SavedRouter
 import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.present
-import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.field.SearchField
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
-import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
-import com.app.signal.control_kit.fragment.ex.focusKeyboard
-import com.app.signal.control_kit.fragment.ex.promptToast
-import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
+import com.app.signal.control_kit.fragment.ex.*
 import com.app.signal.control_kit.recycler_view.EndlessRecyclerViewScrollListener
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
 import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
@@ -131,13 +126,11 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
             toolbar.updatePadding(top = insets.top)
 
             _fieldSearch.doOnPreDraw {
-
                 searchRv.updatePadding(
                     top = it.height,
-                    bottom = insets.bottom + spacing
+                    bottom = spacing
                 )
                 discoverRv.updatePadding(
-                    top = it.height,
                     bottom = insets.bottom + spacing
                 )
             }
@@ -154,9 +147,8 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         if (_fieldSearch.text.isNullOrEmpty()) {
             focusKeyboard(_fieldSearch)
         }
-
-
     }
+
 
     private fun bindFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -205,6 +197,11 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
                 }
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        resignKeyboard()
     }
 
     private fun onImageSaved() {

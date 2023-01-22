@@ -6,19 +6,6 @@ import androidx.fragment.app.FragmentManager
 import com.app.signal.control_kit.ex.pop
 import com.app.signal.control_kit.fragment.RouterFragment
 
-fun Fragment.findNearestParentReceiverTag(): String {
-    var fragment: Fragment? = this
-
-    while (fragment != null) {
-        if (fragment.parentFragment is RouterFragment) {
-            return fragment.tag ?: ""
-        }
-
-        fragment = fragment.parentFragment
-    }
-
-    return ""
-}
 
 fun Fragment.findNearestRouter(): RouterFragment? {
     var fragment: Fragment? = this
@@ -31,10 +18,6 @@ fun Fragment.findNearestRouter(): RouterFragment? {
     }
 
     return fragment
-}
-
-fun Fragment.requireNearestRouter(): RouterFragment {
-    return findNearestRouter() as RouterFragment
 }
 
 fun Fragment.findRouterFragmentManager(): FragmentManager? {

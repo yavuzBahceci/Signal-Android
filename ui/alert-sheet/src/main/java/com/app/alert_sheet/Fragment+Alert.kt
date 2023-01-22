@@ -1,6 +1,5 @@
 package com.app.alert_sheet
 
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.app.signal.alert_sheet.R
 import com.app.signal.control_kit.ex.present
@@ -14,24 +13,6 @@ fun Fragment.presentAlert(
     presentAlert(
         msg = Text.Chars(throwable?.localizedMessage),
         onDismissReceiverKey = onDismissRequestKey
-    )
-}
-
-fun Fragment.presentAlert(
-    @StringRes titleResId: Int? = null,
-    @StringRes msgResId: Int,
-    onDismissReceiverKey: String? = null
-) {
-    val title: Text? = if (titleResId != null) {
-        Text.Resource(titleResId)
-    } else {
-        null
-    }
-
-    presentAlert(
-        title,
-        Text.Resource(msgResId),
-        onDismissReceiverKey
     )
 }
 

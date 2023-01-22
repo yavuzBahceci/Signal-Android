@@ -7,7 +7,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.app.signal.control_kit.ex.current
 
-fun Fragment.getDefaultConsumableInsets(): Int {
+fun getDefaultConsumableInsets(): Int {
     return WindowInsetsCompat.Type.systemBars() or
             WindowInsetsCompat.Type.ime() or
             WindowInsetsCompat.Type.systemGestures()

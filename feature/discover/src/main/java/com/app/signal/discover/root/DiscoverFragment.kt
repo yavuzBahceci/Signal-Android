@@ -128,7 +128,6 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
 
             _fieldSearch.doOnPreDraw {
                 searchRv.updatePadding(
-                    top = it.height,
                     bottom = spacing
                 )
                 discoverRv.updatePadding(
@@ -159,6 +158,11 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
                 launch { bindLastSearchesFlow() }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        resignKeyboard()
     }
 
     private suspend fun bindLastSearchesFlow() {

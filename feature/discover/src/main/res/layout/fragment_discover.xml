@@ -34,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:layout_marginTop="@dimen/spacing_md"
         android:paddingHorizontal="@dimen/spacing_md"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="wrap"

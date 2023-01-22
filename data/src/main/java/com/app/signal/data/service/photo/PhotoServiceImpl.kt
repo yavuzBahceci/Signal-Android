@@ -45,7 +45,6 @@ data class PhotoServiceImpl @Inject constructor(
             currentList.removeLast()
         }
         currentList.add(0, searchText)
-        println("!!!!!!! Save Search $currentList")
         storage.previousSearches = currentList
     }
 }

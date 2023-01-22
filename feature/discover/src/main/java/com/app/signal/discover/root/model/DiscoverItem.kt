@@ -1,9 +1,7 @@
 package com.app.signal.discover.root.model
 
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
 import com.app.signal.domain.model.photo.Image
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 sealed class DiscoverItem(open val id: String) {

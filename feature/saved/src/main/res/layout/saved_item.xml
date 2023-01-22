@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_surface_secondary_ripple"
+    android:padding="@dimen/spacing_md">
+
+    <com.app.signal.control_kit.CircularImageView
+        android:id="@+id/img_thumbnail"
+        android:layout_width="@dimen/image_thumbnail_width"
+        android:layout_height="@dimen/image_thumbnail_height"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_image_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="@dimen/spacing_sm"
+        android:layout_marginEnd="@dimen/spacing_sm"
+
+        android:ellipsize="end"
+        android:maxLines="1"
+
+        android:textAppearance="?textAppearanceBody1_SemiBold"
+        android:textColor="@color/content"
+
+        android:textAlignment="viewStart"
+        android:textDirection="rtl"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txt_image_title"
+
+        app:layout_constraintStart_toEndOf="@id/img_thumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_image_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_sm"
+
+        android:maxLines="1"
+        android:textAppearance="?textAppearanceBody2_SemiBold"
+
+        android:textColor="@color/content_30"
+
+        android:textDirection="locale"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txt_image_id"
+        app:layout_constraintTop_toBottomOf="@id/txt_image_id" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

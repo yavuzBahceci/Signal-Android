@@ -1,6 +1,7 @@
 package com.app.signal.discover.root.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.app.signal.control_kit.CircularImageView
 import com.app.signal.control_kit.recycler_view.adapter.StatefulAdapter
@@ -25,11 +26,16 @@ private class RowHolder(itemView: View) : ViewHolder<DiscoverItem.Photo>(itemVie
     private val imgLogo: CircularImageView = itemView.findViewById(R.id.img_thumbnail)
     private val txtId: TextView = itemView.findViewById(R.id.txt_image_id)
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_image_title)
+    private val addButton: ImageView = itemView.findViewById(R.id.add_button)
 
     override fun bind(item: DiscoverItem.Photo) {
 
         itemView.setOnClickListener {
             item.actionFlow.tryEmit(DiscoverAction.Select(item))
+        }
+
+        addButton.setOnClickListener {
+            item.actionFlow.tryEmit(DiscoverAction.Save(item))
         }
 
         imgLogo.loadImage(item.image?.thumbNailUrl)

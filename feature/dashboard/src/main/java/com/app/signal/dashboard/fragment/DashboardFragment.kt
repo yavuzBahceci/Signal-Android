@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.app.navigation.router.DiscoverRouter
+import com.app.navigation.router.SavedRouter
 import com.app.signal.control_kit.ex.switchToChild
 import com.app.signal.control_kit.ex.updateMargins
 import com.app.signal.control_kit.fragment.AnyFragment
@@ -34,6 +35,9 @@ class DashboardFragment : AnyFragment(R.layout.fragment_dashboard) {
 
     @Inject
     lateinit var discoverRouter: DiscoverRouter
+
+    @Inject
+    lateinit var savedRouter: SavedRouter
 
     private lateinit var container: ViewGroup
     private lateinit var bottomNav: BottomNavigationView
@@ -125,7 +129,7 @@ class DashboardFragment : AnyFragment(R.layout.fragment_dashboard) {
 
     private fun createFragmentFrom(@IdRes id: Int): Fragment = when (id) {
         R.id.discover -> discoverRouter.getDiscoverFragment()
-        else -> discoverRouter.getDiscoverFragment()
+        else -> savedRouter.getSavedFragment()
 
     }
 }

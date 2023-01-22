@@ -24,21 +24,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
 
-    private val vm: DashboardViewModel by viewModels()
-
     private val appRouterFragment: RouterFragment
         get() {
             return supportFragmentManager.findFragmentById(R.id.app_router_fragment) as RouterFragment
         }
 
     private lateinit var indicator: IndicatorView
-
-    fun openDashboardTab(@IdRes id: Int) {
-        appRouterFragment.childFragmentManager.setFragmentResult(
-            DashboardFragmentRequestKey,
-            bundleOf(DashboardBundleKey.SelectedTabId to id)
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

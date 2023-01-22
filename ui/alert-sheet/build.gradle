@@ -1,0 +1,45 @@
+import com.app.signal.buildSrc.*
+
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
+}
+
+android {
+    compileSdkVersion AndroidTarget.compileSdk
+
+    defaultConfig {
+        minSdkVersion AndroidTarget.minSdk
+        targetSdkVersion AndroidTarget.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(Module.Core.utils)
+
+    implementation project(Module.UI.designSystem)
+    implementation project(Module.UI.controlKit)
+
+    implementation(Libs.AndroidX.androidXCore)
+    implementation(Libs.AndroidX.AppCompat.androidXAppCompat)
+
+    implementation(Libs.AndroidX.fragment)
+    implementation(Libs.AndroidX.constraintLayout)
+
+    implementation(Libs.material)
+}

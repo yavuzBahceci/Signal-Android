@@ -3,4 +3,5 @@
     <string name="search_images">Search Images</string>
     <string name="discover">Discover</string>
     <string name="recent_searches">Recent Searches</string>
+    <string name="image_saved">Image Saved</string>
 </resources>

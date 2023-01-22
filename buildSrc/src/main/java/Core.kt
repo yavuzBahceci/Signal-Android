@@ -20,5 +20,6 @@ object Module {
     object UI {
         const val designSystem = ":ui:design-system"
         const val controlKit = ":ui:control-kit"
+        const val alertSheet = ":ui:alert-sheet"
     }
 }

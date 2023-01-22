@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.app.signal.control_kit.fragment.sheet.SheetCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sheet_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    app:fitToContent="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_sheet_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:outlineProvider="background"
+        android:paddingHorizontal="@dimen/spacing_md">
+
+        <com.app.signal.control_kit.fragment.sheet.SheetGrip
+            android:id="@+id/grip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_xl" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textAlignment="center"
+            android:textAppearance="?textAppearanceH4_SemiBold"
+            android:textColor="@color/content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:includeFontPadding="false"
+            android:textAlignment="center"
+            android:textAppearance="?textAppearanceBody2_Regular"
+            android:textColor="@color/content_50" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/sheet_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/spacing_md" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.app.signal.control_kit.fragment.sheet.SheetCoordinatorLayout>

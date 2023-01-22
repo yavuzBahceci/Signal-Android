@@ -11,7 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
+import com.app.navigation.router.SavedRouter
 import com.app.signal.control_kit.IndicatorView
 import com.app.signal.control_kit.ex.push
 import com.app.signal.control_kit.field.SearchField
@@ -19,6 +21,7 @@ import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
 import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
 import com.app.signal.control_kit.fragment.ex.focusKeyboard
+import com.app.signal.control_kit.fragment.ex.promptToast
 import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
 import com.app.signal.control_kit.recycler_view.EndlessRecyclerViewScrollListener
 import com.app.signal.control_kit.recycler_view.decorations.MarginDecoration
@@ -29,7 +32,7 @@ import com.app.signal.discover.root.adapter.DiscoverAdapter
 import com.app.signal.discover.root.adapter.SearchesAdapter
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
-import com.app.signal.domain.model.photo.Photo
+import com.app.signal.domain.model.State
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import loadAttrDimension
@@ -50,6 +53,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
 
     @Inject
     lateinit var _imageDetailRouter: ImageDetailRouter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,6 +110,12 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         loadMoreListener = object : EndlessRecyclerViewScrollListener(layoutDiscover) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 vm.triggerToLoadMore()
+            }
+
+            override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                scrolledHeight = view.computeVerticalScrollOffset()
+                updateToolbar(scrolledHeight)
+                super.onScrolled(view, dx, dy)
             }
         }
 
@@ -184,7 +194,20 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
     }
 
     private fun saveImage(photo: DiscoverItem.Photo) {
-        TODO("")
+        viewLifecycleOwner.lifecycleScope.launch {
+            vm.savePhoto(photo).collect { state ->
+                when (state) {
+                    is State.Success -> onImageSaved()
+                    is State.Error -> presentAlert(throwable = state.cause)
+
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun onImageSaved() {
+        promptToast(getString(R.string.image_saved))
     }
 
     private fun updateToolbar(dy: Int) {
@@ -202,7 +225,6 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
             _imageDetailRouter.getImageDetailFragment(photo.title, it).let {
                 requireRouterFragmentManager().push(fragment = it)
             }
-
         }
     }
 }

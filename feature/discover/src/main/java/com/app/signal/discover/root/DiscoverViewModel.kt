@@ -2,11 +2,13 @@ package com.app.signal.discover.root
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.signal.discover.root.model.AnyPhoto
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.discover.root.model.SearchItem
 import com.app.signal.discover.utils.cursorFlow
 import com.app.signal.domain.form.photo.SearchQueryParams
+import com.app.signal.domain.model.State
 import com.app.signal.domain.model.mapStateListItem
 import com.app.signal.domain.service.PhotoService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,7 +58,6 @@ internal data class DiscoverViewModel @Inject constructor(
             }.map { it.data }
     }
 
-
     val recentSearches = photoService.observePreviousSearches()
         .map { textList ->
             textList.map {
@@ -77,5 +78,11 @@ internal data class DiscoverViewModel @Inject constructor(
 
     fun getActionFlow(): SharedFlow<DiscoverAction> {
         return _actionFlow
+    }
+
+    fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Unit>> {
+        return photoService.savePhoto(AnyPhoto(photo.id, photo.image!!, photo.title))
+            .flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())
     }
 }

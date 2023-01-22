@@ -29,7 +29,6 @@ fun <T> cursorFlow(
                 when (val tmp = tracker) {
                     is CursorTracker.LoadMore -> {
                         key = tmp.nextPage
-                        println("!!!!!!!! cursorFlow Collect Latest Key: ${key.toString()}")
                     }
                     else -> return@collectLatest
                 }
@@ -44,7 +43,6 @@ fun <T> cursorFlow(
                     .first()
 
                 result?.let {
-                    println("!!!!!!! New Result")
                     buffer.addAll(result.items)
 
                     val next = result.nextPage

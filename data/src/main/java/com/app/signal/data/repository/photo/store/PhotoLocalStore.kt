@@ -25,7 +25,6 @@ data class PhotoRoomStore @Inject constructor(
     }
 
     override suspend fun savePhoto(dto: Photo) {
-        println("!!!!! Room Store Save Photo $dto")
         db.withTransaction {
             val entity = PhotoEntity(
                 dto.id,

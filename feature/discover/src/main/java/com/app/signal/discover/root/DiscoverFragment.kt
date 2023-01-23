@@ -186,7 +186,10 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         when (item) {
             is DiscoverAction.Select -> toImageDetail(item.photo)
             is DiscoverAction.Save -> saveImage(item.photo)
-            is DiscoverAction.Search -> vm.triggerSearch(item.searchText)
+            is DiscoverAction.Search -> {
+                resignKeyboard()
+                vm.triggerSearch(item.searchText)
+            }
         }
     }
 

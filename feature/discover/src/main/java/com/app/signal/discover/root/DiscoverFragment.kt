@@ -56,9 +56,9 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         super.onViewCreated(view, savedInstanceState)
 
         _fieldSearch = view.findViewById(R.id.field_search)
-        _fieldSearch.addTextChangedListener {
-            vm.triggerSearch(it.toString())
-        }
+        _fieldSearch.addTextChangedListener(
+            afterTextChanged = { vm.triggerSearch(it.toString()) }
+        )
 
         val layoutDiscover = LinearLayoutManager(view.context)
         val layoutSearch = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)

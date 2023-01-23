@@ -8,10 +8,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.app.signal.control_kit.ex.resolveColor
-import com.app.signal.design_system.R.*
+import com.app.signal.design_system.R.attr
 import com.app.signal.design_system.ThemeColor
+import com.app.signal.utils.resolveTextAppearanceResId
 import com.google.android.material.appbar.MaterialToolbar
-import resolveTextAppearanceResId
 
 class SignalToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null

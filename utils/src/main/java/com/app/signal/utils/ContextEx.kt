@@ -1,3 +1,5 @@
+package com.app.signal.utils
+
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.TypedArray

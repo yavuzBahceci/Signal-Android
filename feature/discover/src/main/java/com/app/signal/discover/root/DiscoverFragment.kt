@@ -29,10 +29,10 @@ import com.app.signal.discover.root.adapter.SearchesAdapter
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.domain.model.State
+import com.app.signal.utils.loadAttrDimension
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import loadAttrDimension
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,9 +56,9 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         super.onViewCreated(view, savedInstanceState)
 
         _fieldSearch = view.findViewById(R.id.field_search)
-        _fieldSearch.addTextChangedListener {
-            vm.triggerSearch(it.toString())
-        }
+        _fieldSearch.addTextChangedListener(
+            afterTextChanged = { vm.triggerSearch(it.toString()) }
+        )
 
         val layoutDiscover = LinearLayoutManager(view.context)
         val layoutSearch = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
@@ -166,7 +166,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
     private suspend fun bindLastSearchesFlow() {
         val adapter = searchRv.adapter as SearchesAdapter
         vm.recentSearches.collect {
-            it?.let { it1 -> adapter.submit(it1) }
+            adapter.submit(it)
         }
     }
 

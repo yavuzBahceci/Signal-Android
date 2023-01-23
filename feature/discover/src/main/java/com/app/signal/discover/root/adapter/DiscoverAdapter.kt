@@ -1,5 +1,6 @@
 package com.app.signal.discover.root.adapter
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +29,7 @@ private class RowHolder(itemView: View) : ViewHolder<DiscoverItem.Photo>(itemVie
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_image_title)
     private val addButton: ImageView = itemView.findViewById(R.id.add_button)
 
+    @SuppressLint("NewApi")
     override fun bind(item: DiscoverItem.Photo) {
 
         itemView.setOnClickListener {

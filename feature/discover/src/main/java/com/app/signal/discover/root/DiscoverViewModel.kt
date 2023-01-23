@@ -36,17 +36,21 @@ internal data class DiscoverViewModel @Inject constructor(
         itemsFlow = _searchStateFlow.debounce(2000)
             .distinctUntilChanged()
             .flatMapLatest { searchText ->
-                cursorFlow(
-                    trigger = loadMore,
-                    request = {
-                        photoService.searchPhotos(
-                            SearchQueryParams(
-                                searchText = searchText,
-                                page = it
+                if (searchText.isNotEmpty()) {
+                    cursorFlow(
+                        trigger = loadMore,
+                        request = {
+                            photoService.searchPhotos(
+                                SearchQueryParams(
+                                    searchText = searchText,
+                                    page = it
+                                )
                             )
-                        )
-                    }
-                )
+                        }
+                    )
+                } else {
+                    flowOf()
+                }
             }.mapStateListItem {
                 DiscoverItem.Photo(
                     it.id,

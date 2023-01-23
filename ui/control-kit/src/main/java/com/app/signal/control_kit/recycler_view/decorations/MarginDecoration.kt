@@ -110,7 +110,7 @@ open class MarginDecoration: RecyclerView.ItemDecoration {
         val layoutManager = parent.layoutManager
 
         if (layoutManager is GridLayoutManager) {
-            val position = parent.getChildLayoutPosition(view);
+            val position = parent.getChildLayoutPosition(view)
 
             val spanCount = layoutManager.spanCount
             val spanSize = layoutManager.spanSizeLookup.getSpanSize(position)

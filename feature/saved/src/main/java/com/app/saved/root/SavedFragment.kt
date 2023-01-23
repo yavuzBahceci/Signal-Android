@@ -96,6 +96,14 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
                 WindowInsetsCompat.CONSUMED
             }
 
+            it.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                    scrolledHeight = view.computeVerticalScrollOffset()
+                    updateToolbar(scrolledHeight)
+                    super.onScrolled(view, dx, dy)
+                }
+            })
+
         }
 
         bindFlows()
@@ -148,6 +156,11 @@ internal class SavedFragment : ActionBarToolbarFragment(R.layout.fragment_saved)
                 }
             }
         }
+    }
+
+    private fun updateToolbar(dy: Int) {
+        val distance = toolbar.height.toFloat()
+        toolbar.updateToolbarProgress(dy.toFloat() / distance)
     }
 
     private fun onPhotoDeleted() {

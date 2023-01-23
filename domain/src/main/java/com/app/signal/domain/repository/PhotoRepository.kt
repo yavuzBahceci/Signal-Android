@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 typealias PhotosState = State<List<Photo>>
 
-typealias StringsState = State<List<String>>
-
 typealias PhotosPageState = State<PhotoListPage<Photo>>
 
 typealias UnitState = State<Unit>

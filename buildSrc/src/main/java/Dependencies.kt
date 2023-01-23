@@ -20,6 +20,7 @@ object Versions {
     const val media = "1.0.0-beta03"
     const val room = "2.5.0-beta02"
     const val lifecycle = "2.5.1"
+    const val junit_jupiter = "5.7.0" // 5.8.1
 
 }
 
@@ -53,6 +54,8 @@ object Libs {
         const val implementation = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
 
         const val logger = "com.squareup.okhttp3:logging-interceptor:4.9.0"
+        const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+
     }
 
     object Glide {

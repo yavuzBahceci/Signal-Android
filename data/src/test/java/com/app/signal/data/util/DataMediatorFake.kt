@@ -1,17 +1,12 @@
-package com.app.signal.data.service
+package com.app.signal.data.util
 
-import android.util.Log
-import com.app.signal.data.BuildConfig
 import com.app.signal.domain.model.State
 import com.app.signal.domain.service.DataMediator
 import com.app.signal.domain.service.ErrorHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class DataMediatorImpl @Inject constructor(
-    private val errorHandler: ErrorHandler
-) : DataMediator {
+class DataMediatorFake(private val errorHandler: ErrorHandler) : DataMediator {
 
     override fun <Dto> exec(get: suspend () -> Dto): Flow<State<Dto>> = flow {
         emit(State.Loading(null))
@@ -20,9 +15,6 @@ class DataMediatorImpl @Inject constructor(
             val data = get()
             State.Success(data)
         } catch (ex: Throwable) {
-            if (BuildConfig.DEBUG) {
-                Log.v("DATA_MEDIATOR", "err $ex")
-            }
             State.Error(errorHandler.process(ex))
         }
 
@@ -37,9 +29,6 @@ class DataMediatorImpl @Inject constructor(
 
             State.Success(data)
         } catch (ex: Throwable) {
-            if (BuildConfig.DEBUG) {
-                Log.v("DATA_MEDIATOR", "err $ex")
-            }
             State.Error(errorHandler.process(ex))
         }
 

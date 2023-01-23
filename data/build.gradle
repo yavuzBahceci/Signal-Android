@@ -1,6 +1,7 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
+import com.app.signal.buildSrc.UnitTest
 
 plugins {
     id "com.android.library"
@@ -54,6 +55,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -76,10 +83,22 @@ dependencies {
     kapt Libs.AndroidX.Room.kapt
 
     implementation Libs.Retrofit.implementation
+    implementation Libs.Retrofit.gson
+
     implementation Libs.Retrofit.logger
 
     implementation Libs.Kotlin.serialization
 
     implementation Libs.Hilt.implementation
     kapt Libs.Hilt.kapt
+
+    // TESTING
+    testImplementation UnitTest.jupiter_api
+    testImplementation UnitTest.jupiter_params
+    testRuntimeOnly UnitTest.jupiter_engine
+
+    // Mock web server
+    testImplementation UnitTest.mock_web_server
+    testImplementation UnitTest.okHttp
+
 }

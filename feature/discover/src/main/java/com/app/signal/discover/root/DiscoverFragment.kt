@@ -29,10 +29,10 @@ import com.app.signal.discover.root.adapter.SearchesAdapter
 import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.domain.model.State
+import com.app.signal.utils.loadAttrDimension
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import loadAttrDimension
 import javax.inject.Inject
 
 @AndroidEntryPoint

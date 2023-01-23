@@ -1,5 +1,6 @@
 package com.app.saved.root.adapter
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +28,8 @@ private class RowHolder(itemView: View) : ViewHolder<SavedItem.Photo>(itemView) 
     private val txtId: TextView = itemView.findViewById(R.id.txt_image_id)
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_image_title)
     private val deleteButton: ImageView = itemView.findViewById(R.id.delete_button)
+
+    @SuppressLint("NewApi")
     override fun bind(item: SavedItem.Photo) {
 
         itemView.setOnClickListener {

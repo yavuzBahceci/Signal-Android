@@ -18,9 +18,9 @@ import com.app.signal.control_kit.fragment.ex.consumeWindowInsets
 import com.app.signal.control_kit.fragment.ex.getDefaultConsumableInsets
 import com.app.signal.control_kit.fragment.ex.requireRouterFragmentManager
 import com.app.signal.dashboard.R
+import com.app.signal.utils.loadAttrDimension
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import loadAttrDimension
 import javax.inject.Inject
 
 const val DashboardFragmentRequestKey = "DASHBOARD_REQ_KEY_SELECT_TAB"

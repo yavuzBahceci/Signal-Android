@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.whenStateAtLeast
 import com.app.signal.control_kit.ex.resolveColor
 import com.app.signal.design_system.ThemeColor
-import isUsingNightMode
+import com.app.signal.utils.isUsingNightMode
 import kotlinx.coroutines.launch
 
 enum class SystemBarStyle {

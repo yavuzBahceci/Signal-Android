@@ -27,10 +27,10 @@ import com.app.signal.control_kit.recycler_view.decorations.SpacingDecoration
 import com.app.signal.design_system.R.dimen
 import com.app.signal.domain.model.State
 import com.app.signal.saved.R
+import com.app.signal.utils.loadAttrDimension
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import loadAttrDimension
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -13,6 +13,8 @@ import com.facebook.shimmer.BuildConfig
 abstract class ViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     open fun bind(item: T) {}
 
+    open fun onRecycle() {}
+    open fun onDetached() {}
 }
 
 typealias ViewHolderFactory<T> = (View) -> ViewHolder<T>

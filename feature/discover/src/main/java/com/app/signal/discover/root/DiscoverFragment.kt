@@ -166,7 +166,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
     private suspend fun bindLastSearchesFlow() {
         val adapter = searchRv.adapter as SearchesAdapter
         vm.recentSearches.collect {
-            it?.let { it1 -> adapter.submit(it1) }
+            adapter.submit(it)
         }
     }
 

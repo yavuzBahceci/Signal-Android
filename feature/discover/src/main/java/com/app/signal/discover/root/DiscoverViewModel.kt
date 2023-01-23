@@ -33,7 +33,7 @@ internal data class DiscoverViewModel @Inject constructor(
     init {
         val loadMore = _loadMoreFlow.map { }
 
-        itemsFlow = _searchStateFlow.debounce(2000)
+        itemsFlow = _searchStateFlow.debounce(1500)
             .distinctUntilChanged()
             .flatMapLatest { searchText ->
                 if (searchText.isNotEmpty()) {
@@ -68,7 +68,7 @@ internal data class DiscoverViewModel @Inject constructor(
                 SearchItem(it, _actionFlow)
             }.filter { it.text.isNotEmpty() }
         }.flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, SharingStarted.Lazily, null)
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun triggerSearch(text: String) {
         _searchStateFlow.value = text

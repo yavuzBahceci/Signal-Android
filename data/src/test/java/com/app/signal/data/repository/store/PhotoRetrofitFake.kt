@@ -18,14 +18,10 @@ class PhotoRetrofitFake(private val mockPhotoApiResponse: MockPhotoApiResponse) 
 
 private fun String.toPhotoDto(): PhotoResponse<List<PhotoDto>> {
     val gson = GsonBuilder()
-        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
         .create()
 
-    val dtoList: PhotoResponse<List<PhotoDto>> = gson.fromJson(
+    return gson.fromJson(
         this,
         object : TypeToken<PhotoResponse<List<PhotoDto>>>() {}.type
     )
-    println("!!!!!!!!!!! To Photo Dto $dtoList")
-
-    return dtoList
 }

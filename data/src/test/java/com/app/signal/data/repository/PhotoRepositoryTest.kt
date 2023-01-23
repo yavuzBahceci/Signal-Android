@@ -3,6 +3,8 @@ package com.app.signal.data.repository
 import com.app.signal.data.dao.PhotoDaoFake
 import com.app.signal.data.database.SignalDatabaseFake
 import com.app.signal.data.dto.response.photo.ImageDto
+import com.app.signal.data.json_serializer.UriSerializer
+import com.app.signal.data.json_serializer.factory.SerializerConverterFactory
 import com.app.signal.data.repository.photo.PhotoRepositoryImpl
 import com.app.signal.data.repository.photo.store.PhotoLocalStore
 import com.app.signal.data.repository.photo.store.PhotoRemoteStore
@@ -14,14 +16,15 @@ import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.data.util.DataMediatorFake
 import com.app.signal.data.util.FakeErrorHandler
 import com.app.signal.domain.form.photo.SearchQueryParams
-import com.app.signal.domain.model.PhotoListPage
-import com.app.signal.domain.model.photo.Photo
 import com.app.signal.domain.repository.PhotoRepository
 import com.app.signal.domain.service.ErrorHandler
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -29,7 +32,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
 
 class PhotoRepositoryTest {
@@ -52,17 +54,26 @@ class PhotoRepositoryTest {
     val searchText = "lion"
     val page = 10000
 
+    private val module = SerializersModule {
+        contextual(UriSerializer)
+    }
+
     @BeforeEach
     fun setup() {
         gson = GsonBuilder()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .create()
+
         mockWebServer = MockWebServer()
         mockWebServer.start()
-        baseUrl = mockWebServer.url(".")
+        baseUrl = mockWebServer.url("")
         photoApi = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addConverterFactory(SerializerConverterFactory(Json {
+                isLenient = true
+                ignoreUnknownKeys = true
+                coerceInputValues = true
+                serializersModule = module
+            }))
             .build()
             .create(PhotoApi::class.java)
 
@@ -91,8 +102,8 @@ class PhotoRepositoryTest {
         // first emission should be `loading`
         assert(photosAsFlow[0].isLoading)
         // second should be correct data type
-        println("!!!!!!!!! ${photosAsFlow[1].error?.printStackTrace()}")
-        assert(photosAsFlow[1].data is PhotoListPage<Photo>)
+        TODO("Mock Web Server is not working properly.")
+        // assert(photosAsFlow[1].data is PhotoListPage<Photo>)
     }
 
     @Test

@@ -16,6 +16,8 @@ import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.data.util.DataMediatorFake
 import com.app.signal.data.util.FakeErrorHandler
 import com.app.signal.domain.form.photo.SearchQueryParams
+import com.app.signal.domain.model.PhotoListPage
+import com.app.signal.domain.model.photo.Photo
 import com.app.signal.domain.repository.PhotoRepository
 import com.app.signal.domain.service.ErrorHandler
 import com.google.gson.Gson
@@ -103,7 +105,9 @@ class PhotoRepositoryTest {
         assert(photosAsFlow[0].isLoading)
         // second should be correct data type
         // TODO("Mock Web Server is not working properly.")
-        // assert(photosAsFlow[1].data is PhotoListPage<Photo>)
+        assert(photosAsFlow[1].data is PhotoListPage<Photo>)
+        assert(photosAsFlow[1].data?.items?.size == 25)
+        assert(photosAsFlow[1].data?.items?.get(0)?.id == "52641319570")
     }
 
     @Test

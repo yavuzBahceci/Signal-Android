@@ -2,10 +2,7 @@ package com.app.signal.data.service.photo
 
 import com.app.signal.domain.form.photo.SearchQueryParams
 import com.app.signal.domain.model.photo.Photo
-import com.app.signal.domain.repository.PhotoRepository
-import com.app.signal.domain.repository.PhotosPageState
-import com.app.signal.domain.repository.PhotosState
-import com.app.signal.domain.repository.UnitState
+import com.app.signal.domain.repository.*
 import com.app.signal.domain.service.AppStorage
 import com.app.signal.domain.service.PhotoService
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +34,7 @@ data class PhotoServiceImpl @Inject constructor(
         return photoRepository.getSavedPhotos()
     }
 
-    override suspend fun savePhoto(photo: Photo): Flow<UnitState> {
+    override suspend fun savePhoto(photo: Photo): Flow<LongState> {
         val request = coroutineScope {
             async {
                 photoRepository.savePhoto(photo)
@@ -46,7 +43,7 @@ data class PhotoServiceImpl @Inject constructor(
         return request.await()
     }
 
-    override suspend fun deletePhoto(id: String): Flow<UnitState> {
+    override suspend fun deletePhoto(id: String): Flow<IntState> {
         val request = coroutineScope {
             async {
                 photoRepository.removeSavedPhoto(id)

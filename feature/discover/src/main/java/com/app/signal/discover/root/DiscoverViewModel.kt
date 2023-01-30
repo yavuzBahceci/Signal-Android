@@ -62,15 +62,14 @@ internal data class DiscoverViewModel @Inject constructor(
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Empty())
     }
 
-    val recentSearches = viewModelScope.launch {
-        photoService.observePreviousSearches()
-            .map { textList ->
-                textList.map {
-                    SearchItem(it, _actionFlow)
-                }.filter { it.text.isNotEmpty() }
-            }.flowOn(Dispatchers.IO)
-            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-    }
+    val recentSearches = photoService.observePreviousSearches()
+        .map { textList ->
+            textList.map {
+                SearchItem(it, _actionFlow)
+            }.filter { it.text.isNotEmpty() }
+        }.flowOn(Dispatchers.IO)
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
 
     fun triggerSearch(text: String) {
         _searchStateFlow.value = text
@@ -86,7 +85,7 @@ internal data class DiscoverViewModel @Inject constructor(
         return _actionFlow
     }
 
-    suspend fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Unit>> {
+    suspend fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Long>> {
         return photoService.savePhoto(AnyPhoto(photo.id, photo.image!!, photo.title))
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())

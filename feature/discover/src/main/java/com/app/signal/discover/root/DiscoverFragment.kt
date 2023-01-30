@@ -152,8 +152,8 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { bindItemsFlow() }
-                launch { bindActionFlow() }
                 launch { bindLastSearchesFlow() }
+                launch { bindActionFlow() }
             }
         }
     }

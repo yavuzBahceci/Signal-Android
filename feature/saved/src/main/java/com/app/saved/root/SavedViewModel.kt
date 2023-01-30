@@ -23,7 +23,7 @@ internal data class SavedViewModel @Inject constructor(
     private val _actionFlow = MutableSharedFlow<SavedAction>(0, 1)
     private val _refreshTrigger = MutableStateFlow(System.currentTimeMillis())
 
-    fun deletePhoto(photoId: String): StateFlow<State<Unit>> {
+    suspend fun deletePhoto(photoId: String): StateFlow<State<Unit>> {
         return photoService.deletePhoto(photoId)
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())

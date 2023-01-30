@@ -84,7 +84,7 @@ internal data class DiscoverViewModel @Inject constructor(
         return _actionFlow
     }
 
-    fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Unit>> {
+    suspend fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Unit>> {
         return photoService.savePhoto(AnyPhoto(photo.id, photo.image!!, photo.title))
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())

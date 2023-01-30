@@ -28,8 +28,9 @@ class PhotoDaoFake(private val appDatabaseFake: SignalDatabaseFake) : PhotoDao()
     }
 
 
-    override suspend fun update(obj: PhotoEntity) {
+    override suspend fun update(obj: PhotoEntity): Int {
         appDatabaseFake.savedPhotos.removeIf { it.id == obj.id }
         appDatabaseFake.savedPhotos.add(obj)
+        return 1
     }
 }

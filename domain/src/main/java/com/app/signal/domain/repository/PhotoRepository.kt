@@ -10,8 +10,6 @@ typealias PhotosState = State<List<Photo>>
 
 typealias PhotosPageState = State<PhotoListPage<Photo>>
 
-typealias UnitState = State<Unit>
-
 typealias LongState = State<Long>
 
 typealias IntState = State<Int>

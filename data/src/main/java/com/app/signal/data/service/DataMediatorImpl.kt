@@ -6,7 +6,9 @@ import com.app.signal.domain.model.State
 import com.app.signal.domain.service.DataMediator
 import com.app.signal.domain.service.ErrorHandler
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DataMediatorImpl @Inject constructor(
@@ -29,20 +31,29 @@ class DataMediatorImpl @Inject constructor(
         emit(state)
     }
 
-    override fun execSave(save: suspend () -> Unit): Flow<State<Unit>> = flow {
+    override fun <ReturnModel> execSave(save: suspend () -> Flow<ReturnModel>)
+            : Flow<State<ReturnModel>> = flow {
         emit(State.Loading(null))
 
         val state = try {
-            val data = save()
-
-            State.Success(data)
+            save().map {
+                val result = it
+                if (result is Number) {
+                    if (result == -1) {
+                        State.Error(errorHandler.process(Throwable()), it)
+                    } else {
+                        State.Success(it)
+                    }
+                } else {
+                    State.Error(errorHandler.process(Throwable()), it)
+                }
+            }
         } catch (ex: Throwable) {
             if (BuildConfig.DEBUG) {
                 Log.v("DATA_MEDIATOR", "err $ex")
             }
-            State.Error(errorHandler.process(ex))
+            save().map { State.Error(errorHandler.process(ex), it) }
         }
-
-        emit(state)
+        emitAll(state)
     }
 }

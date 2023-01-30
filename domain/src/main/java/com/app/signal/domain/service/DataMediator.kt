@@ -10,7 +10,7 @@ interface DataMediator {
         get: suspend () -> Model
     ): Flow<State<Model>>
 
-    fun execSave(
-        save: suspend () -> Unit
-    ): Flow<State<Unit>>
+    fun <ReturnModel> execSave(
+        save: suspend () -> Flow<ReturnModel>
+    ): Flow<State<ReturnModel>>
 }

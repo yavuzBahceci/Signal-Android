@@ -12,13 +12,17 @@ typealias PhotosPageState = State<PhotoListPage<Photo>>
 
 typealias UnitState = State<Unit>
 
+typealias LongState = State<Long>
+
+typealias IntState = State<Int>
+
 interface PhotoRepository {
 
     fun getSearchResults(params: SearchQueryParams): Flow<PhotosPageState>
 
     fun getSavedPhotos(): Flow<PhotosState>
 
-    fun savePhoto(photo: Photo): Flow<UnitState>
+    fun savePhoto(photo: Photo): Flow<LongState>
 
-    fun removeSavedPhoto(id: String): Flow<UnitState>
+    fun removeSavedPhoto(id: String): Flow<IntState>
 }

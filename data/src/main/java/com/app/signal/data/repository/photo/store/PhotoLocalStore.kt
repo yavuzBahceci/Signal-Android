@@ -5,14 +5,16 @@ import com.app.signal.data.dto.response.photo.ImageDto
 import com.app.signal.data.room.AppDatabase
 import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.domain.model.photo.Photo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 interface PhotoLocalStore {
     fun getSavedPhotos(): List<Photo>
 
-    suspend fun savePhoto(dto: Photo)
+    suspend fun savePhoto(dto: Photo): Flow<Long>
 
-    suspend fun removePhoto(id: String)
+    suspend fun removePhoto(id: String): Flow<Int>
 }
 
 data class PhotoRoomStore @Inject constructor(
@@ -24,25 +26,29 @@ data class PhotoRoomStore @Inject constructor(
         return photoDao.getSavedPhotos()
     }
 
-    override suspend fun savePhoto(dto: Photo) {
-        db.withTransaction {
-            val entity = PhotoEntity(
-                dto.id,
-                ImageDto(
-                    dto.img.smallImageUrl,
-                    dto.img.largeImageUrl,
-                    dto.img.thumbNailUrl
-                ),
-                dto.title
-            )
+    override suspend fun savePhoto(dto: Photo): Flow<Long> {
+        return callbackFlow {
+            db.withTransaction {
+                val entity = PhotoEntity(
+                    dto.id,
+                    ImageDto(
+                        dto.img.smallImageUrl,
+                        dto.img.largeImageUrl,
+                        dto.img.thumbNailUrl
+                    ),
+                    dto.title
+                )
 
-            photoDao.insertOrUpdate(entity)
+                trySend(photoDao.insertOrUpdate(entity))
+            }
         }
     }
 
-    override suspend fun removePhoto(id: String) {
-        db.withTransaction {
-            photoDao.deletePhoto(id)
+    override suspend fun removePhoto(id: String): Flow<Int> {
+        return callbackFlow {
+            db.withTransaction {
+                trySend(photoDao.deletePhoto(id))
+            }
         }
     }
 

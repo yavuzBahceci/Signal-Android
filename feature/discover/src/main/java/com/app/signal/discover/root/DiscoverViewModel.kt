@@ -63,7 +63,7 @@ internal data class DiscoverViewModel @Inject constructor(
     }
 
     val recentSearches = photoService.observePreviousSearches()
-        .map { textList ->
+        .mapLatest { textList ->
             textList.map {
                 SearchItem(it, _actionFlow)
             }.filter { it.text.isNotEmpty() }

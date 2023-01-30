@@ -5,6 +5,7 @@ import com.app.signal.data.dto.response.photo.ImageDto
 import com.app.signal.data.room.AppDatabase
 import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.domain.model.photo.Photo
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
@@ -41,6 +42,7 @@ data class PhotoRoomStore @Inject constructor(
 
                 trySend(photoDao.insertOrUpdate(entity))
             }
+            awaitClose()
         }
     }
 
@@ -49,6 +51,7 @@ data class PhotoRoomStore @Inject constructor(
             db.withTransaction {
                 trySend(photoDao.deletePhoto(id))
             }
+            awaitClose()
         }
     }
 

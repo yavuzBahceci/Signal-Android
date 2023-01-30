@@ -8,9 +8,11 @@ import com.app.signal.domain.repository.PhotosState
 import com.app.signal.domain.repository.UnitState
 import com.app.signal.domain.service.AppStorage
 import com.app.signal.domain.service.PhotoService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class PhotoServiceImpl @Inject constructor(
@@ -22,8 +24,12 @@ data class PhotoServiceImpl @Inject constructor(
         return storage.observePreviousSearches()
     }
 
-    override fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState> {
-        saveSearch(searchQueryParams.searchText)
+    override suspend fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState> {
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                saveSearch(searchQueryParams.searchText)
+            }
+        }
         return photoRepository.getSearchResults(searchQueryParams)
     }
 

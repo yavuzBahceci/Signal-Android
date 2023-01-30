@@ -11,7 +11,7 @@ interface PhotoService {
 
     fun observePreviousSearches(): Flow<List<String>>
 
-    fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState>
+    suspend fun searchPhotos(searchQueryParams: SearchQueryParams): Flow<PhotosPageState>
 
     fun getSavedPhotos(): Flow<PhotosState>
 

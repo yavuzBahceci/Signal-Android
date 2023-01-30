@@ -12,7 +12,7 @@ sealed class CursorTracker {
 fun <T> cursorFlow(
     cursorTracker: CursorTracker = CursorTracker.LoadMore(),
     trigger: Flow<Unit>,
-    request: (Long?) -> Flow<State<PhotoListPage<T>>>
+    request: suspend (Long?) -> Flow<State<PhotoListPage<T>>>
 ): Flow<State<List<T>>> {
     return channelFlow {
         var tracker = cursorTracker

@@ -15,7 +15,7 @@ interface PhotoService {
 
     fun getSavedPhotos(): Flow<PhotosState>
 
-    fun savePhoto(photo: Photo): Flow<UnitState>
+    suspend fun savePhoto(photo: Photo): Flow<UnitState>
 
-    fun deletePhoto(id: String): Flow<UnitState>
+    suspend fun deletePhoto(id: String): Flow<UnitState>
 }

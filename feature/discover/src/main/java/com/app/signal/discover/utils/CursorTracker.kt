@@ -25,7 +25,6 @@ fun <T> cursorFlow(
             .collectLatest {
                 val key: Long?
 
-
                 when (val tmp = tracker) {
                     is CursorTracker.LoadMore -> {
                         key = tmp.nextPage

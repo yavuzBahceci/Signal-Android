@@ -5,14 +5,13 @@ import com.app.signal.data.BuildConfig
 import com.app.signal.domain.model.State
 import com.app.signal.domain.service.DataMediator
 import com.app.signal.domain.service.ErrorHandler
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class DataMediatorImpl @Inject constructor(
-    private val errorHandler: ErrorHandler
+    private val errorHandler: ErrorHandler,
+    private val dispatcher: CoroutineDispatcher
 ) : DataMediator {
 
     override fun <Dto> exec(get: suspend () -> Dto): Flow<State<Dto>> = flow {
@@ -29,7 +28,7 @@ class DataMediatorImpl @Inject constructor(
         }
 
         emit(state)
-    }
+    }.flowOn(dispatcher)
 
     override fun <ReturnModel> execSave(save: suspend () -> Flow<ReturnModel>)
             : Flow<State<ReturnModel>> = flow {
@@ -55,5 +54,5 @@ class DataMediatorImpl @Inject constructor(
             save().map { State.Error(errorHandler.process(ex), it) }
         }
         emitAll(state)
-    }
+    }.flowOn(dispatcher)
 }

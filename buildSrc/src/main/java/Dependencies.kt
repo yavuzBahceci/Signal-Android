@@ -28,6 +28,7 @@ object TestLibraries {
     const val jUnit = "junit:junit:${Versions.jUnit}"
     const val androidXJUnit = "androidx.test.ext:junit:${Versions.androidXJUnit}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }
 
 

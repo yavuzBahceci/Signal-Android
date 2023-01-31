@@ -3,12 +3,13 @@ package com.app.signal.data.util
 import com.app.signal.domain.model.State
 import com.app.signal.domain.service.DataMediator
 import com.app.signal.domain.service.ErrorHandler
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 
-class DataMediatorFake(private val errorHandler: ErrorHandler) : DataMediator {
+class DataMediatorFake(
+    private val errorHandler: ErrorHandler,
+    private val dispatcher: CoroutineDispatcher
+) : DataMediator {
 
     override fun <Dto> exec(get: suspend () -> Dto): Flow<State<Dto>> = flow {
         emit(State.Loading(null))
@@ -21,7 +22,7 @@ class DataMediatorFake(private val errorHandler: ErrorHandler) : DataMediator {
         }
 
         emit(state)
-    }
+    }.flowOn(dispatcher)
 
     override fun <ReturnModel> execSave(save: suspend () -> Flow<ReturnModel>): Flow<State<ReturnModel>> =
         flow {
@@ -34,5 +35,5 @@ class DataMediatorFake(private val errorHandler: ErrorHandler) : DataMediator {
             }
 
             emitAll(state)
-        }
+        }.flowOn(dispatcher)
 }

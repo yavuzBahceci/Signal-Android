@@ -30,6 +30,7 @@ import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.domain.model.State
 import com.app.signal.utils.loadAttrDimension
+import com.app.signal.utils.visible
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -167,7 +168,7 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         val adapter = searchRv.adapter as SearchesAdapter
         vm.recentSearches.collect {
             if (it.isNotEmpty()) {
-                searchRv.visibility = View.VISIBLE
+                searchRv.visible()
                 adapter.submit(it)
             }
         }

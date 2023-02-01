@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
 import com.app.signal.control_kit.ex.present
+import com.app.signal.control_kit.ex.visible
 import com.app.signal.control_kit.field.SearchField
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
@@ -30,7 +31,6 @@ import com.app.signal.discover.root.model.DiscoverAction
 import com.app.signal.discover.root.model.DiscoverItem
 import com.app.signal.domain.model.State
 import com.app.signal.utils.loadAttrDimension
-import com.app.signal.utils.visible
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

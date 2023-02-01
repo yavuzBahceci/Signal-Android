@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,9 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 object NetworkModule {
 
     @Provides
-    fun provideDispatcher(): CoroutineDispatcher {
-        return Dispatchers.IO
-    }
+    fun provideDispatcher() = Dispatchers.IO
 
     @Provides
     fun provideHeaderInjector(): PhotoApiInjector {

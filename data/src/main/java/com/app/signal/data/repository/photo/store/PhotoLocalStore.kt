@@ -5,9 +5,8 @@ import com.app.signal.data.dto.response.photo.ImageDto
 import com.app.signal.data.room.AppDatabase
 import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.domain.model.photo.Photo
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.channelFlow
 import javax.inject.Inject
 
 interface PhotoLocalStore {
@@ -28,7 +27,7 @@ data class PhotoRoomStore @Inject constructor(
     }
 
     override suspend fun savePhoto(dto: Photo): Flow<Long> {
-        return callbackFlow {
+        return channelFlow {
             db.withTransaction {
                 val entity = PhotoEntity(
                     dto.id,
@@ -42,16 +41,14 @@ data class PhotoRoomStore @Inject constructor(
 
                 trySend(photoDao.insertOrUpdate(entity))
             }
-            awaitClose()
         }
     }
 
     override suspend fun removePhoto(id: String): Flow<Int> {
-        return callbackFlow {
+        return channelFlow {
             db.withTransaction {
                 trySend(photoDao.deletePhoto(id))
             }
-            awaitClose()
         }
     }
 

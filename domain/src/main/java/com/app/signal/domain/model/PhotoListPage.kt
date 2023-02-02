@@ -8,16 +8,10 @@ data class PhotoListPage<out T>(
     val pageCount: Long,
     val currentPage: Long
 ) {
-    val nextPage: Long? by FormatDelegate()
-
-    companion object {
-        fun <T> empty(): PhotoListPage<T> {
-            return PhotoListPage(emptyList(), 0, 0)
-        }
-    }
+    val nextPage: Long? by NextPageDelegate()
 }
 
-class FormatDelegate<T> :
+class NextPageDelegate<T> :
     ReadOnlyProperty<PhotoListPage<T>, Long?> {
 
     override fun getValue(thisRef: PhotoListPage<T>, property: KProperty<*>): Long? {

@@ -87,10 +87,6 @@ dependencies {
 
     implementation Libs.AndroidX.constraintLayout
 
-    testImplementation TestLibraries.jUnit
-    androidTestImplementation TestLibraries.androidXJUnit
-    androidTestImplementation TestLibraries.espressoCore
-
     // HILT
     implementation Libs.Hilt.implementation
 

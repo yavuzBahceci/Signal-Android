@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.alert_sheet.presentAlert
 import com.app.navigation.router.ImageDetailRouter
 import com.app.signal.control_kit.ex.present
+import com.app.signal.control_kit.ex.visible
 import com.app.signal.control_kit.field.SearchField
 import com.app.signal.control_kit.fragment.ActionBarToolbarFragment
 import com.app.signal.control_kit.fragment.ScrollableFragment
@@ -152,8 +153,8 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { bindItemsFlow() }
-                launch { bindActionFlow() }
                 launch { bindLastSearchesFlow() }
+                launch { bindActionFlow() }
             }
         }
     }
@@ -166,7 +167,10 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
     private suspend fun bindLastSearchesFlow() {
         val adapter = searchRv.adapter as SearchesAdapter
         vm.recentSearches.collect {
-            adapter.submit(it)
+            if (it.isNotEmpty()) {
+                searchRv.visible()
+                adapter.submit(it)
+            }
         }
     }
 
@@ -186,11 +190,13 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
         when (item) {
             is DiscoverAction.Select -> toImageDetail(item.photo)
             is DiscoverAction.Save -> saveImage(item.photo)
-            is DiscoverAction.Search -> {
-                resignKeyboard()
-                vm.triggerSearch(item.searchText)
-            }
+            is DiscoverAction.Search -> triggerSearch(item.searchText)
         }
+    }
+
+    private fun triggerSearch(searchText: String) {
+        resignKeyboard()
+        vm.triggerSearch(searchText)
     }
 
     private fun saveImage(photo: DiscoverItem.Photo) {

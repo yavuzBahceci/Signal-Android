@@ -1,12 +1,25 @@
 package com.app.signal.domain.model
 
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+
 data class PhotoListPage<out T>(
     val items: List<T>,
-    val nextPage: Long?
+    val pageCount: Long,
+    val currentPage: Long
 ) {
-    companion object {
-        fun <T> empty(): PhotoListPage<T> {
-            return PhotoListPage(emptyList(), null)
+    val nextPage: Long? by NextPageDelegate()
+}
+
+class NextPageDelegate<T> :
+    ReadOnlyProperty<PhotoListPage<T>, Long?> {
+
+    override fun getValue(thisRef: PhotoListPage<T>, property: KProperty<*>): Long? {
+        return if (thisRef.currentPage < thisRef.pageCount) {
+            thisRef.currentPage + 1
+        } else {
+            null
         }
     }
+
 }

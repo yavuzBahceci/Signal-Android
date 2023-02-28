@@ -1,7 +1,6 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
-import com.app.signal.buildSrc.TestLibraries
 
 plugins {
     id "com.android.library"
@@ -72,9 +71,6 @@ dependencies {
 
     implementation Libs.AndroidX.constraintLayout
 
-    testImplementation TestLibraries.jUnit
-    androidTestImplementation TestLibraries.androidXJUnit
-    androidTestImplementation TestLibraries.espressoCore
 
     // HILT
     implementation Libs.Hilt.implementation

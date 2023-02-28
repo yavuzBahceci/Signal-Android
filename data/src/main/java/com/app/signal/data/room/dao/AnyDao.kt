@@ -8,12 +8,12 @@ abstract class AnyDao<T> {
     abstract suspend fun insert(obj: T): Long
 
     @Update
-    abstract suspend fun update(obj: T)
+    abstract suspend fun update(obj: T): Int
 
     @Transaction
-    open suspend fun insertOrUpdate(obj: T) {
+    open suspend fun insertOrUpdate(obj: T): Long {
         val id = insert(obj)
-        if (id == -1L) update(obj)
+        return if (id == -1L) update(obj).toLong() else id
     }
 
 }

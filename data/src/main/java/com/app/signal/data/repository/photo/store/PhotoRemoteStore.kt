@@ -20,14 +20,10 @@ data class PhotoRetrofitStore @Inject constructor(
     override suspend fun getPhotos(searchQueryParams: SearchQueryParams): PhotoListPage<PhotoDto> {
         val response =
             photoRestApi.searchPhotos(searchQueryParams.searchText, searchQueryParams.page)
-
         return createPhotoListPage(response)
     }
 
-    private fun createPhotoListPage(response: PhotoResponse<PhotoListDto>) =
-        if (response.photos.page < response.photos.pages) {
-            PhotoListPage(response.photos.photo, response.photos.page + 1)
-        } else {
-            PhotoListPage(response.photos.photo, null)
-        }
+    private fun createPhotoListPage(response: PhotoResponse<PhotoListDto>): PhotoListPage<PhotoDto> {
+        return PhotoListPage(response.photos.photo, response.photos.pages, response.photos.page)
+    }
 }

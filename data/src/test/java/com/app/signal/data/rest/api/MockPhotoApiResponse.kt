@@ -1,7 +1,7 @@
 package com.app.signal.data.rest.api
 
 object MockPhotoApiResponse {
-    val photoResponse = "{\n" +
+    const val photoResponse = "{\n" +
             "    \"photos\": {\n" +
             "        \"page\": 10000,\n" +
             "        \"pages\": 15461,\n" +

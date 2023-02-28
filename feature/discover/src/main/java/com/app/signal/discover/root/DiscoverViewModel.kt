@@ -12,7 +12,6 @@ import com.app.signal.domain.model.State
 import com.app.signal.domain.model.mapStateListItem
 import com.app.signal.domain.service.PhotoService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
@@ -33,7 +32,8 @@ internal data class DiscoverViewModel @Inject constructor(
     init {
         val loadMore = _loadMoreFlow.map { }
 
-        itemsFlow = _searchStateFlow.debounce(1500)
+        itemsFlow = _searchStateFlow
+            .debounce(1500)
             .distinctUntilChanged()
             .flatMapLatest { searchText ->
                 if (searchText.isNotEmpty()) {
@@ -58,17 +58,16 @@ internal data class DiscoverViewModel @Inject constructor(
                     it.img,
                     _actionFlow,
                 )
-            }.flowOn(Dispatchers.IO)
-            .stateIn(viewModelScope, SharingStarted.Lazily, State.Empty())
+            }.stateIn(viewModelScope, SharingStarted.Lazily, State.Empty())
     }
 
     val recentSearches = photoService.observePreviousSearches()
-        .map { textList ->
+        .mapLatest { textList ->
             textList.map {
                 SearchItem(it, _actionFlow)
             }.filter { it.text.isNotEmpty() }
-        }.flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+        }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
 
     fun triggerSearch(text: String) {
         _searchStateFlow.value = text
@@ -84,9 +83,8 @@ internal data class DiscoverViewModel @Inject constructor(
         return _actionFlow
     }
 
-    fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Unit>> {
+    suspend fun savePhoto(photo: DiscoverItem.Photo): StateFlow<State<Long>> {
         return photoService.savePhoto(AnyPhoto(photo.id, photo.image!!, photo.title))
-            .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Loading())
     }
 }

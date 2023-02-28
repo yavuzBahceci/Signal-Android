@@ -16,12 +16,16 @@ import com.app.signal.data.room.entities.PhotoEntity
 import com.app.signal.data.util.DataMediatorFake
 import com.app.signal.data.util.FakeErrorHandler
 import com.app.signal.domain.form.photo.SearchQueryParams
+import com.app.signal.domain.model.PhotoListPage
+import com.app.signal.domain.model.photo.Photo
 import com.app.signal.domain.repository.PhotoRepository
 import com.app.signal.domain.service.ErrorHandler
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
@@ -34,6 +38,7 @@ import org.junit.jupiter.api.Test
 import retrofit2.Retrofit
 import java.net.HttpURLConnection
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PhotoRepositoryTest {
 
     private val appDatabase = SignalDatabaseFake()
@@ -42,14 +47,14 @@ class PhotoRepositoryTest {
 
     lateinit var gson: Gson
 
-    private lateinit var fakeRetrofit: PhotoRetrofitFake
-    private lateinit var fakeRoom: PhotoRoomFake
     private lateinit var localStore: PhotoLocalStore
     private lateinit var remoteStore: PhotoRemoteStore
     private lateinit var photoDao: PhotoDaoFake
     private lateinit var photoApi: PhotoApi
     private lateinit var photoRepository: PhotoRepository
     private lateinit var errorHandler: ErrorHandler
+
+    private val scope = TestScope()
 
     val searchText = "lion"
     val page = 10000
@@ -62,6 +67,8 @@ class PhotoRepositoryTest {
     fun setup() {
         gson = GsonBuilder()
             .create()
+
+        Dispatchers.setMain(StandardTestDispatcher(scope.testScheduler))
 
         mockWebServer = MockWebServer()
         mockWebServer.start()
@@ -83,11 +90,16 @@ class PhotoRepositoryTest {
         remoteStore = PhotoRetrofitFake(MockPhotoApiResponse)
 
         photoRepository =
-            PhotoRepositoryImpl(DataMediatorFake(errorHandler), localStore, remoteStore)
+            PhotoRepositoryImpl(
+                DataMediatorFake(
+                    errorHandler,
+                    StandardTestDispatcher(scope.testScheduler)
+                ), localStore, remoteStore
+            )
     }
 
     @Test
-    fun getSearchResultsTest(): Unit = runBlocking {
+    fun getSearchResultsTest(): Unit = runTest {
         // condition the response
         mockWebServer.enqueue(
             MockResponse()
@@ -102,12 +114,13 @@ class PhotoRepositoryTest {
         // first emission should be `loading`
         assert(photosAsFlow[0].isLoading)
         // second should be correct data type
-        // TODO("Mock Web Server is not working properly.")
-        // assert(photosAsFlow[1].data is PhotoListPage<Photo>)
+        assert(photosAsFlow[1].data is PhotoListPage<Photo>)
+        assert(photosAsFlow[1].data?.items?.size == 25)
+        assert(photosAsFlow[1].data?.items?.get(0)?.id == "52641319570")
     }
 
     @Test
-    fun getSavedPhotosTest(): Unit = runBlocking {
+    fun getSavedPhotosTest(): Unit = runTest {
         val savedPhotos = photoRepository.getSavedPhotos().toList()
         // First State is Loading
         assert(savedPhotos[0].isLoading)
@@ -122,7 +135,7 @@ class PhotoRepositoryTest {
 
 
     @Test
-    fun savePhotoTest(): Unit = runBlocking {
+    fun savePhotoTest(): Unit = runTest {
 
         val savedPhotos = photoRepository.getSavedPhotos().toList()
         // First State is Loading
@@ -162,7 +175,7 @@ class PhotoRepositoryTest {
 
 
     @Test
-    fun removeSavedPhotoTest(): Unit = runBlocking {
+    fun removeSavedPhotoTest(): Unit = runTest {
         val savedPhotos = photoRepository.getSavedPhotos().toList()
         // First State is Loading
         assert(savedPhotos[0].isLoading)
@@ -214,6 +227,7 @@ class PhotoRepositoryTest {
     @AfterEach
     fun tearDown() {
         mockWebServer.shutdown()
+        Dispatchers.resetMain()
     }
 
     private fun <E> E.serialize(): String {

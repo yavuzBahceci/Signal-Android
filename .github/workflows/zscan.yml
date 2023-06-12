@@ -1,3 +1,4 @@
+---
 name: Build and Test Android App
 on:
   push:
@@ -24,7 +25,10 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'android'
+          distribution: 'android-sdk'
+
+      - name: Install dependencies
+        run: ./gradlew dependencies
 
       - name: Build and test
         run: ./gradlew build

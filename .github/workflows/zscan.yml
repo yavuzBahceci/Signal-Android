@@ -33,6 +33,9 @@ jobs:
           export PATH=$PATH:$PWD/cmdline-tools/bin
           yes | cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33"
 
+      - name: Update Gradle Wrapper Permissions
+        run: chmod +x ./gradlew
+
       - name: Install dependencies
         run: ./gradlew dependencies
 

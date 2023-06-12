@@ -16,6 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: Run unit tests
+        run: ./gradlew test
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:

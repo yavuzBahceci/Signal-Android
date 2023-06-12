@@ -26,8 +26,8 @@ jobs:
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O cmdline-tools.zip
           unzip -q cmdline-tools.zip -d $HOME/android-sdk
           export ANDROID_SDK_ROOT=$HOME/android-sdk
-          export PATH=$PATH:$HOME/android-sdk/cmdline-tools/tools/bin
-          echo "y" | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
+          export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$ANDROID_SDK_ROOT/cmdline-tools/tools:$ANDROID_SDK_ROOT/platform-tools
+          echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
 
       - name: Install dependencies
         run: ./gradlew dependencies

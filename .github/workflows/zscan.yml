@@ -17,15 +17,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up JDK
-        uses: adoptium/setup-adoptium@v1
-        with:
-          java-version: '11'
-          jdk-type: 'hotspot'
-
-      - name: Install Android SDK
         run: |
           sudo apt-get update
           sudo apt-get install -y openjdk-11-jdk
+
+      - name: Install Android SDK
+        run: |
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O cmdline-tools.zip
           unzip -q cmdline-tools.zip -d $HOME/android-sdk
           export ANDROID_SDK_ROOT=$HOME/android-sdk

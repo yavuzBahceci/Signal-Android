@@ -1,5 +1,4 @@
----
-name: Upload coverage reports to Codecov
+name: Build and Test Android App
 on:
   push:
     branches:
@@ -13,7 +12,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-  - name: Checkout repository
-      uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Set up Android SDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'android'
+
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

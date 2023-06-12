@@ -22,9 +22,16 @@ jobs:
           java-version: '11'
 
       - name: Set up Android SDK
-        uses: actions/setup-android-sdk@v2
-        with:
-          sdk-platform: 'android-33'
+        run: |
+          wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d "$HOME/android-sdk/cmdline-tools"
+          export ANDROID_SDK_ROOT=$HOME/android-sdk
+          export PATH=$PATH:$HOME/android-sdk/cmdline-tools/tools/bin
+          yes | sdkmanager --licenses
+
+          # Install necessary SDK components
+          sdkmanager "platforms;android-33"
+          sdkmanager "build-tools;33.0.0"
 
       - name: Install dependencies
         run: ./gradlew dependencies

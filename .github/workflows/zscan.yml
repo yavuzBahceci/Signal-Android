@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -21,8 +21,13 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Grant execute permission to Gradle wrapper
-        run: chmod +x ./gradlew
+      - name: Set up Android SDK
+        uses: actions/setup-android-sdk@v2
+        with:
+          sdk-platform: 'android-33'
+
+      - name: Install dependencies
+        run: ./gradlew dependencies
 
       - name: Build and test
         run: ./gradlew build

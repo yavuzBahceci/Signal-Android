@@ -19,6 +19,10 @@ fun View.slideOut() {
     }
 }
 
+fun View.visible() {
+    if (!isVisible) visibility = View.VISIBLE
+}
+
 fun View.slideIn() {
     isVisible = true
     slideUsing(0f, 1f) {}

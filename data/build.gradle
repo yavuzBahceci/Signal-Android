@@ -1,7 +1,4 @@
-import com.app.signal.buildSrc.AndroidTarget
-import com.app.signal.buildSrc.Libs
-import com.app.signal.buildSrc.Module
-import com.app.signal.buildSrc.UnitTest
+import com.app.signal.buildSrc.*
 
 plugins {
     id "com.android.library"
@@ -96,6 +93,8 @@ dependencies {
     testImplementation UnitTest.jupiter_api
     testImplementation UnitTest.jupiter_params
     testRuntimeOnly UnitTest.jupiter_engine
+
+    testImplementation TestLibraries.coroutines
 
     // Mock web server
     testImplementation UnitTest.mock_web_server

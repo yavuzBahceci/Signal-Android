@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class FakeErrorHandler : ErrorHandler {
     override fun process(error: Throwable): Throwable {
-        return Throwable()
+        return error
     }
 
     override fun observeInterceptedErrors(): Flow<AppError> {

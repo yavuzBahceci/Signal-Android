@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 abstract class SheetFragment(@LayoutRes layoutId: Int) : Fragment(layoutId),
     SystemBarStyleProvider {
-    protected var inDismiss: Boolean = false
+    private var inDismiss: Boolean = false
 
     override var systemBarStyle: SystemBarStyle = SystemBarStyle.Dark
         set(value) {

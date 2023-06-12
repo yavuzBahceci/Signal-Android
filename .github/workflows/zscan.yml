@@ -25,7 +25,6 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'android-sdk'
 
       - name: Install dependencies
         run: ./gradlew dependencies

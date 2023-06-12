@@ -21,6 +21,7 @@ object Versions {
     const val room = "2.5.0-beta02"
     const val lifecycle = "2.5.1"
     const val junit_jupiter = "5.7.0" // 5.8.1
+    const val jacoco = "0.8.7"
 
 }
 

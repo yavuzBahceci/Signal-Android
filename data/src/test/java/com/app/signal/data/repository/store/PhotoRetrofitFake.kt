@@ -14,7 +14,7 @@ class PhotoRetrofitFake(private val mockPhotoApiResponse: MockPhotoApiResponse) 
 
     override suspend fun getPhotos(searchQueryParams: SearchQueryParams): PhotoListPage<PhotoDto> {
 
-        return PhotoListPage(mockPhotoApiResponse.photoResponse.toPhotoDto().photos.photo, 10000)
+        return PhotoListPage(mockPhotoApiResponse.photoResponse.toPhotoDto().photos.photo, 10000, 0)
     }
 }
 

@@ -17,17 +17,21 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up JDK
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jdk
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
 
       - name: Install Android SDK
         run: |
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O cmdline-tools.zip
-          unzip -q cmdline-tools.zip -d $HOME/android-sdk
-          export ANDROID_SDK_ROOT=$HOME/android-sdk
-          export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin:$ANDROID_SDK_ROOT/cmdline-tools/tools:$ANDROID_SDK_ROOT/platform-tools
-          echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
+          sudo apt-get update
+          sudo apt-get install -y curl
+          mkdir android-sdk
+          cd android-sdk
+          curl -fsSLO "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip"
+          unzip -q commandlinetools-linux-7583922_latest.zip
+          export ANDROID_SDK_ROOT=$PWD
+          export PATH=$PATH:$PWD/cmdline-tools/bin
+          yes | cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33"
 
       - name: Install dependencies
         run: ./gradlew dependencies

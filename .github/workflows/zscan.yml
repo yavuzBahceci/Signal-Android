@@ -52,7 +52,6 @@ jobs:
           ./gradlew :feature:discover:testDebugUnitTest
           ./gradlew :feature:saved:testDebugUnitTest
           ./gradlew :feature:image-detail:testDebugUnitTest
-          ./gradlew :services:android-services:testDebugUnitTest
           ./gradlew :ui:design-system:testDebugUnitTest
           ./gradlew :ui:control-kit:testDebugUnitTest
           ./gradlew :common:navigation:testDebugUnitTest

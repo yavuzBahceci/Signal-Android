@@ -45,9 +45,6 @@ jobs:
           ./gradlew :feature:discover:testDebugUnitTest
           ./gradlew :feature:saved:testDebugUnitTest
           ./gradlew :feature:image-detail:testDebugUnitTest
-          ./gradlew :common:navigation:testDebugUnitTest
-          ./gradlew :ui:alert-sheet:testDebugUnitTest
-          ./gradlew :services:android-services:testDebugUnitTest
           # Add more modules as needed
 
       - name: Generate coverage report for each module

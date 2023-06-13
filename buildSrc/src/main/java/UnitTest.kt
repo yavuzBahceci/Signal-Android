@@ -7,4 +7,5 @@ object UnitTest {
 
     const val mock_web_server = "com.squareup.okhttp3:mockwebserver:${Versions.okHttp}"
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val jacoco = "org.jacoco:org.jacoco.agent:${Versions.jacoco}"
 }

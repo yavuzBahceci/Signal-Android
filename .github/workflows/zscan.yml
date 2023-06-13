@@ -1,5 +1,5 @@
----
 name: Build and Test Android App
+
 on:
   push:
     branches:
@@ -36,18 +36,34 @@ jobs:
       - name: Update Gradle Wrapper Permissions
         run: chmod +x ./gradlew
 
-      - name: Install dependencies
-        run: ./gradlew dependencies
+      - name: Build and test each module
+        run: |
+          ./gradlew clean build
 
-      - name: Build and test
-        run: ./gradlew build
+          # Run tests for each module
+          ./gradlew :app:testDebugUnitTest
+          ./gradlew :data:testDebugUnitTest
+          ./gradlew :domain:testDebugUnitTest
+          ./gradlew :services:testDebugUnitTest
+          ./gradlew :utils:testDebugUnitTest
+          ./gradlew :feature:dashboard:testDebugUnitTest
+          ./gradlew :ui:testDebugUnitTest
+          ./gradlew :common:testDebugUnitTest
+          ./gradlew :feature:discover:testDebugUnitTest
+          ./gradlew :feature:saved:testDebugUnitTest
+          ./gradlew :feature:image-detail:testDebugUnitTest
+          ./gradlew :services:android-services:testDebugUnitTest
+          ./gradlew :ui:design-system:testDebugUnitTest
+          ./gradlew :ui:control-kit:testDebugUnitTest
+          ./gradlew :common:navigation:testDebugUnitTest
+          ./gradlew :ui:alert-sheet:testDebugUnitTest
+          # Add more modules as needed
 
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+      - name: Aggregate coverage reports
+        run: ./gradlew aggregateCoverageReports
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          file: ./app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_FLAGS: -f app/build/reports/jacoco/coverage.xml

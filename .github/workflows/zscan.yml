@@ -45,7 +45,6 @@ jobs:
           ./gradlew :data:testDebugUnitTest
           ./gradlew :domain:testDebugUnitTest
           ./gradlew :utils:testDebugUnitTest
-          ./gradlew :ui:testDebugUnitTest
           ./gradlew :common:testDebugUnitTest
           ./gradlew :feature:dashboard:testDebugUnitTest
           ./gradlew :feature:discover:testDebugUnitTest

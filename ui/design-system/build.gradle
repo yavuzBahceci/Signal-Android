@@ -1,11 +1,11 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
+apply from: "$project.rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

@@ -20,6 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y openjdk-11-jdk
+
       - name: Install Android SDK
         run: |
           sudo apt-get update
@@ -31,6 +32,7 @@ jobs:
           export ANDROID_SDK_ROOT=$PWD
           export PATH=$PATH:$PWD/cmdline-tools/bin
           yes | cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33"
+
       - name: Update Gradle Wrapper Permissions
         run: chmod +x ./gradlew
 
@@ -53,14 +55,17 @@ jobs:
           ./gradlew :services:android-services:testDebugUnitTest
           # Add more modules as needed
 
-      - name: Aggregate coverage reports
-        run: |
-          mkdir -p app/build/reports/jacoco
-          cp */build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml app/build/reports/jacoco/
-          ./gradlew mergeJacocoReports
+      - name: Generate coverage report for each module
+        run: ./gradlew generateCoverageReport
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          CODECOV_FLAGS: -f app/build/reports/jacoco/mergedJacocoReport.xml
+      - name: Merge coverage data from each module
+        run: ./gradlew mergeCoverageData
+
+      - name: Generate aggregated coverage report
+        run: ./gradlew generateCoverageReport
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: app/build/reports/jacoco/coverage.xml

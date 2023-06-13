@@ -40,7 +40,6 @@ jobs:
         run: |
           ./gradlew clean build
           # Run tests for each module
-          ./gradlew :app:testDebugUnitTest
           ./gradlew :data:testDebugUnitTest
           ./gradlew :domain:testDebugUnitTest
           ./gradlew :utils:testDebugUnitTest

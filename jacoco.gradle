@@ -1,8 +1,8 @@
 project.afterEvaluate { project ->
-    setupAndroidReporting()
+    setupAndroidReporting(project)
 }
 
-def setupAndroidReporting() {
+def setupAndroidReporting(project) {
     tasks.withType(Test) {
         // Whether or not classes without source location should be instrumented
         jacoco.includeNoLocationClasses = true
@@ -86,13 +86,67 @@ def setupAndroidReporting() {
                 additionalSourceDirs.setFrom(files(coverageSourceDirs))
 
                 reports {
-                    csv.enabled false // change if needed
-                    xml.enabled false // change if needed
+                    xml.enabled true
                     html {
-                        enabled true
+                        enabled false
                         destination file("${buildDir}/coverage-report")
                     }
                 }
+            }
+        }
+    }
+
+    // Add a task to aggregate coverage reports
+    task aggregateCoverageReports {
+        group = "Reporting"
+        description = "Aggregate JaCoCo coverage reports from all modules"
+
+        // Get the list of subprojects excluding the app module
+        def subprojects = project.subprojects.findAll { it.name != 'app' }
+
+        // Set up tasks to copy and merge coverage data from each module
+        subprojects.each { subproject ->
+            def coverageTaskName = "test${subproject.name.capitalize()}UnitTestCoverage"
+            def coverageDataDir = "${subproject.buildDir}/jacoco"
+
+            // Copy coverage data from the module to app module
+            task "copy${subproject.name.capitalize()}CoverageData"(type: Copy, dependsOn: coverageTaskName) {
+                from fileTree(coverageDataDir)
+                into "${project.rootProject.buildDir}/jacoco/${subproject.name}"
+            }
+
+            // Merge coverage data from each module
+            task "merge${subproject.name.capitalize()}CoverageData"(type: JacocoMerge) {
+                executionData fileTree("${project.rootProject.buildDir}/jacoco/${subproject.name}").include('**/*.exec')
+                destinationFile file("${project.rootProject.buildDir}/jacoco/${subproject.name}/merged.exec")
+            }
+
+            // Set up task dependencies
+            tasks.named("copy${subproject.name.capitalize()}CoverageData").configure {
+                dependsOn(coverageTaskName)
+            }
+            tasks.named("merge${subproject.name.capitalize()}CoverageData").configure {
+                dependsOn("copy${subproject.name.capitalize()}CoverageData")
+            }
+        }
+
+        // Merge coverage data from all modules
+        task mergeCoverageData(type: JacocoMerge) {
+            def coverageDataDirs = subprojects.collect { "${project.rootProject.buildDir}/jacoco/${it.name}/merged.exec" }
+            executionData fileTree(coverageDataDirs)
+            destinationFile file("${project.rootProject.buildDir}/jacoco/merged.exec")
+        }
+
+        // Generate the aggregated coverage report
+        task generateCoverageReport(type: JacocoReport, dependsOn: mergeCoverageData) {
+            executionData fileTree("${project.rootProject.buildDir}/jacoco").include('**/*.exec')
+            classDirectories.from = subprojects.collect { fileTree("${project.rootProject.buildDir}/jacoco/${it.name}/classes") }
+            sourceDirectories.from = subprojects.collect { files("${it.projectDir}/src/main/java") }
+            additionalSourceDirs.from = subprojects.collect { files("${it.projectDir}/src/main/java") }
+            reports {
+                xml.enabled true
+                xml.destination file("${project.rootProject.buildDir}/jacoco/coverage.xml")
+                html.enabled false
             }
         }
     }

@@ -3,13 +3,13 @@ import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
 import com.app.signal.buildSrc.Feature
 
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
+apply from: "$project.rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

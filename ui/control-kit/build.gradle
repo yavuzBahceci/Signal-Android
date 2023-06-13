@@ -2,12 +2,12 @@ import com.app.signal.buildSrc.Java
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
 }
+apply from: "$project.rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

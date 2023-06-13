@@ -30,6 +30,11 @@ def setupAndroidReporting(project) {
             def testTaskName = "test${sourceName.capitalize()}UnitTest"
             System.out.println("Task -> $testTaskName")
 
+            // Skip 'app' module
+            if (sourceName == "appDebug") {
+                return
+            }
+
             // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
             task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
                 group = "Reporting"
@@ -87,10 +92,8 @@ def setupAndroidReporting(project) {
 
                 reports {
                     xml.enabled true
-                    html {
-                        enabled false
-                        destination file("${buildDir}/coverage-report")
-                    }
+                    html.enabled true
+                    html.destination file("${project.buildDir}/reports/jacoco/${sourceName}")
                 }
             }
         }
@@ -102,7 +105,13 @@ def setupAndroidReporting(project) {
         description = "Aggregate JaCoCo coverage reports from all modules"
 
         // Get the list of subprojects excluding the app module
-        def subprojects = project.subprojects.findAll { it.name != 'app' }
+        def subprojects = project.subprojects.findAll({
+            it.name == ":data"
+                    || it.name == "feature:dashboard"
+                    || it.name == "feature:discover"
+                    || it.name == "feature:saved"
+                    || it.name == "feature:image-detail"
+        })
 
         // Set up tasks to copy and merge coverage data from each module
         subprojects.each { subproject ->
@@ -132,9 +141,22 @@ def setupAndroidReporting(project) {
 
         // Merge coverage data from all modules
         task mergeCoverageData(type: JacocoMerge) {
-            def coverageDataDirs = subprojects.collect { "${project.rootProject.buildDir}/jacoco/${it.name}/merged.exec" }
-            executionData fileTree(coverageDataDirs)
-            destinationFile file("${project.rootProject.buildDir}/jacoco/merged.exec")
+            def coverageDataDirs = subprojects.collect { subproject ->
+                fileTree(dir: "${project.rootProject.buildDir}/jacoco/${subproject.name}", include: '**/*.exec')
+            }
+
+            if (coverageDataDirs) {
+                def allDataFiles = []
+                coverageDataDirs.each { dataDir ->
+                    allDataFiles += fileTree(dataDir).files
+                }
+                executionData allDataFiles
+                destinationFile = file("${project.rootProject.buildDir}/jacoco/merged.exec")
+            } else {
+                doLast {
+                    println "No coverage data directories found. Skipping mergeCoverageData task."
+                }
+            }
         }
 
         // Generate the aggregated coverage report

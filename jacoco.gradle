@@ -145,8 +145,9 @@ def setupAndroidReporting(project) {
             additionalSourceDirs.from = subprojects.collect { files("${it.projectDir}/src/main/java") }
             reports {
                 xml.enabled true
-                xml.destination file("${project.rootProject.buildDir}/jacoco/coverage.xml")
-                html.enabled false
+                xml.destination file("${project.rootProject.buildDir}/reports/jacoco/jacoco.xml")
+                html.enabled true
+                html.destination file("${project.rootProject.buildDir}/reports/jacoco/html")
             }
         }
     }

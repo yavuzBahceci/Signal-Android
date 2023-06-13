@@ -44,11 +44,10 @@ jobs:
           ./gradlew :app:testDebugUnitTest
           ./gradlew :data:testDebugUnitTest
           ./gradlew :domain:testDebugUnitTest
-          ./gradlew :services:testDebugUnitTest
           ./gradlew :utils:testDebugUnitTest
-          ./gradlew :feature:dashboard:testDebugUnitTest
           ./gradlew :ui:testDebugUnitTest
           ./gradlew :common:testDebugUnitTest
+          ./gradlew :feature:dashboard:testDebugUnitTest
           ./gradlew :feature:discover:testDebugUnitTest
           ./gradlew :feature:saved:testDebugUnitTest
           ./gradlew :feature:image-detail:testDebugUnitTest

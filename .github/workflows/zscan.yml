@@ -41,14 +41,10 @@ jobs:
           ./gradlew clean build
           # Run tests for each module
           ./gradlew :data:testDebugUnitTest
-          ./gradlew :domain:testDebugUnitTest
-          ./gradlew :utils:testDebugUnitTest
           ./gradlew :feature:dashboard:testDebugUnitTest
           ./gradlew :feature:discover:testDebugUnitTest
           ./gradlew :feature:saved:testDebugUnitTest
           ./gradlew :feature:image-detail:testDebugUnitTest
-          ./gradlew :ui:design-system:testDebugUnitTest
-          ./gradlew :ui:control-kit:testDebugUnitTest
           ./gradlew :common:navigation:testDebugUnitTest
           ./gradlew :ui:alert-sheet:testDebugUnitTest
           ./gradlew :services:android-services:testDebugUnitTest

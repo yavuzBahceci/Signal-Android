@@ -56,6 +56,7 @@ jobs:
           ./gradlew :ui:control-kit:testDebugUnitTest
           ./gradlew :common:navigation:testDebugUnitTest
           ./gradlew :ui:alert-sheet:testDebugUnitTest
+          ./gradlew :services:android-services:testDebugUnitTest
           # Add more modules as needed
 
       - name: Aggregate coverage reports

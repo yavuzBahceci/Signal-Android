@@ -61,4 +61,3 @@ jobs:
         with:
           name: coverage-report
           path: build/reports/jacoco/jacoco.xml
-            env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

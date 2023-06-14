@@ -40,24 +40,9 @@ jobs:
         run: |
           ./gradlew clean build
           # Run tests for each module
-          ./gradlew :data:testDebugUnitTest
-          ./gradlew :feature:dashboard:testDebugUnitTest
-          ./gradlew :feature:discover:testDebugUnitTest
-          ./gradlew :feature:saved:testDebugUnitTest
-          ./gradlew :feature:image-detail:testDebugUnitTest
-          # Add more modules as needed
+          ./gradlew test
 
-      - name: Generate coverage report for each module
-        run: ./gradlew generateCoverageReport
-
-      - name: Merge coverage data from each module
-        run: ./gradlew mergeCoverageData
-
-      - name: Generate aggregated coverage report
-        run: ./gradlew generateCoverageReport
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: build/reports/jacoco/jacoco.xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env: 
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

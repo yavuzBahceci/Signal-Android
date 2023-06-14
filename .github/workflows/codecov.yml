@@ -40,6 +40,12 @@ jobs:
         run: |
           ./gradlew clean build
           # Run tests for each module
+          ./gradlew :data:createDebugCoverageReport
+          ./gradlew :feature:dashboard:createDebugCoverageReport
+          ./gradlew :feature:discover:createDebugCoverageReport
+          ./gradlew :feature:saved:createDebugCoverageReport
+          ./gradlew :feature:image-detail:createDebugCoverageReport
+
           ./gradlew generateCoverageReport
         
       - name: Upload coverage reports to Codecov

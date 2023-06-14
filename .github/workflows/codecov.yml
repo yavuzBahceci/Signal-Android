@@ -1,0 +1,65 @@
+name: Build and Test Android App
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk
+
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+          mkdir android-sdk
+          cd android-sdk
+          curl -fsSLO "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip"
+          unzip -q commandlinetools-linux-7583922_latest.zip
+          export ANDROID_SDK_ROOT=$PWD
+          export PATH=$PATH:$PWD/cmdline-tools/bin
+          yes | cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33"
+
+      - name: Update Gradle Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Build and test each module
+        run: |
+          ./gradlew clean build
+          # Run tests for each module
+          ./gradlew :data:testDebugUnitTest
+          ./gradlew :feature:dashboard:testDebugUnitTest
+          ./gradlew :feature:discover:testDebugUnitTest
+          ./gradlew :feature:saved:testDebugUnitTest
+          ./gradlew :feature:image-detail:testDebugUnitTest
+          # Add more modules as needed
+
+      - name: Generate coverage report for each module
+        run: ./gradlew generateCoverageReport
+
+      - name: Merge coverage data from each module
+        run: ./gradlew mergeCoverageData
+
+      - name: Generate aggregated coverage report
+        run: ./gradlew generateCoverageReport
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          name: coverage-report
+          path: build/reports/jacoco/jacoco.xml

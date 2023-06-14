@@ -141,22 +141,8 @@ def setupAndroidReporting(project) {
 
         // Merge coverage data from all modules
         task mergeCoverageData(type: JacocoMerge) {
-            def coverageDataDirs = subprojects.collect { subproject ->
-                fileTree(dir: "${project.rootProject.buildDir}/jacoco/${subproject.name}", include: '**/*.exec')
-            }
-
-            if (coverageDataDirs) {
-                def allDataFiles = []
-                coverageDataDirs.each { dataDir ->
-                    allDataFiles += fileTree(dataDir).files
-                }
-                executionData allDataFiles
-                destinationFile = file("${project.rootProject.buildDir}/jacoco/merged.exec")
-            } else {
-                doLast {
-                    println "No coverage data directories found. Skipping mergeCoverageData task."
-                }
-            }
+            executionData fileTree("${project.rootProject.buildDir}/jacoco").include('**/*.exec')
+            destinationFile = file("${project.rootProject.buildDir}/jacoco/merged.exec")
         }
 
         // Generate the aggregated coverage report

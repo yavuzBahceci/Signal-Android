@@ -92,8 +92,8 @@ def setupAndroidReporting(project) {
 
                 reports {
                     xml.enabled = true
-                    xml.destination = file("${project.buildDir}/reports/jacoco/${sourceName}/jacoco.xml")
-                    html.enabled = false
+                    xml.destination = file("${project.buildDir}/reports/jacoco/${sourcePath}/jacoco.xml")
+                    html.enabled = true
                 }
             }
         }
@@ -101,13 +101,23 @@ def setupAndroidReporting(project) {
 
     // Generate the aggregated coverage report
     task generateCoverageReport(type: JacocoReport) {
+        def moduleReports = subprojects.collect { pj ->
+            fileTree("${pj.projectDir}/build/reports/coverage/androidTest/debug/connected")
+                    .include("**/report.xml")
+        }
+
         executionData fileTree("${project.rootProject.buildDir}/jacoco").include('**/*.exec')
-        classDirectories.from = subprojects.collect { fileTree("${project.rootProject.buildDir}/jacoco/${it.name}/classes") }
-        sourceDirectories.from = subprojects.collect { files("${it.projectDir}/src/main/java") }
-        additionalSourceDirs.from = subprojects.collect { files("${it.projectDir}/src/main/java") }
+        classDirectories.from = moduleReports
+        sourceDirectories.from = subprojects.collect { pj ->
+            files("${pj.projectDir}/src/main/java")
+        }
+        additionalSourceDirs.from = subprojects.collect { pj ->
+            files("${pj.projectDir}/src/main/java")
+        }
+
         reports {
             xml.enabled = true
-            html.enabled = false
+            html.enabled = true
             xml.destination = file("${project.rootProject.buildDir}/reports/jacoco/jacoco.xml")
         }
     }

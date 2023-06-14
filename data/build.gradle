@@ -7,6 +7,7 @@ plugins {
     id "kotlinx-serialization"
     id "kotlin-kapt"
 }
+
 apply from: "$project.rootDir/jacoco.gradle"
 
 android {

@@ -48,4 +48,4 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           name: coverage-report
-          path: build/reports/jacoco/jacoco.xml
+          directory: build/reports/jacoco/jacoco.xml

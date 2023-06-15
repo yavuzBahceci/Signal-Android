@@ -1,4 +1,5 @@
 import com.app.signal.buildSrc.*
+import com.app.signal.buildSrc.UnitTest
 
 plugins {
     id "com.android.library"
@@ -8,6 +9,8 @@ plugins {
     id "kotlinx-serialization"
     id "kotlin-kapt"
 }
+
+apply from: '../jacoco/modules.gradle'
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

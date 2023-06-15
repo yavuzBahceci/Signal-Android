@@ -31,10 +31,3 @@
 #### - Unit tests for data module( Not completed )
 
 [![codecov](https://codecov.io/github/yavuzBahceci/Signal-Android/branch/dev/graph/badge.svg?token=AKII7C3LR0)](https://codecov.io/github/yavuzBahceci/Signal-Android)
-
-<a href="https://codecov.io/github/yavuzBahceci/Signal-Android" > 
- <img src="https://codecov.io/github/yavuzBahceci/Signal-Android/branch/dev/graph/badge.svg?token=AKII7C3LR0"/> 
- </a>
- 
- .. image:: https://codecov.io/github/yavuzBahceci/Signal-Android/branch/dev/graph/badge.svg?token=AKII7C3LR0 
- :target: https://codecov.io/github/yavuzBahceci/Signal-Android

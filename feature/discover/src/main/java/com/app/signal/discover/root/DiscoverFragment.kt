@@ -90,8 +90,6 @@ internal class DiscoverFragment : ActionBarToolbarFragment(R.layout.fragment_dis
 
         searchRv.also {
 
-            it.setHasFixedSize(true)
-
             it.addItemDecoration(
                 SpacingDecoration(
                     ctx = it.context,

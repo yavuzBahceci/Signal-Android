@@ -97,6 +97,8 @@ dependencies {
     testImplementation UnitTest.jupiter_params
     testRuntimeOnly UnitTest.jupiter_engine
 
+    testImplementation TestLibraries.jUnit
+    testImplementation TestLibraries.androidXJUnit
     testImplementation TestLibraries.coroutines
 
     // Mock web server

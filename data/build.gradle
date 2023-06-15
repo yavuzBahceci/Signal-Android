@@ -6,9 +6,8 @@ plugins {
 
     id "kotlinx-serialization"
     id "kotlin-kapt"
+    id "jacoco-report-aggregation"
 }
-
-apply from: "$project.rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

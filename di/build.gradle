@@ -9,7 +9,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
-apply from: "$project.rootDir/jacoco.gradle"
+apply from: '../jacoco/modules.gradle'
 
 android {
     compileSdkVersion AndroidTarget.compileSdk

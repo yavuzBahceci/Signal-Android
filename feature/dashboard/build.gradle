@@ -10,9 +10,9 @@ plugins {
     id "kotlin-parcelize"
     id "kotlinx-serialization"
     id "kotlin-kapt"
+    id "jacoco-report-aggregation"
 }
-apply from: "$project.rootDir/jacoco.gradle"
-
+apply from: '../../jacoco/modules.gradle'
 android {
     compileSdkVersion AndroidTarget.compileSdk
 
@@ -28,7 +28,7 @@ android {
     }
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled false
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

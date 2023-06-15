@@ -39,13 +39,13 @@ jobs:
       - name: Install dependencies
         run: ./gradlew dependencies
 
-      - name: Build and test
+      - name: Build
         run: ./gradlew build
 
-      - name: Run unit tests
+      - name: Run Code Coverage for each module
         run: ./gradlew debugCoverage
 
-      - name: Run unit tests
+      - name: Merge all coverage report into one
         run: ./gradlew allDebugCoverage
 
       - name: Upload coverage reports to Codecov

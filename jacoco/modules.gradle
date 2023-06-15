@@ -35,7 +35,28 @@ project.afterEvaluate {
                 '**/R2$*.class',
                 '**/*Directions$*',
                 '**/*Directions.*',
-                '**/*Binding.*'
+                '**/*Binding.*',
+                // Exclude Dagger-generated files
+                '**/*_MembersInjector*.*',
+                '**/*_Factory*.*',
+                '**/*_Provide*Factory*.*',
+                '**/*_Factory*.*',
+                '**/*_MembersInjector*.*',
+                '**/*_MembersInjector*.*',
+                '**/*_Provide*Factory*.*',
+                '**/*_Factory*.*',
+
+                // Exclude Hilt-generated files
+                '**/*_MembersInjector*.*',
+                '**/*_Factory*.*',
+                '**/*_Provide*Factory*.*',
+                '**/*_MembersInjector*.*',
+                '**/*_MembersInjector*.*',
+                '**/*_Provide*Factory*.*',
+                '**/*_Factory*.*',
+                // Exclusion for lines with only parentheses
+                '**/*)',
+                '**/*('
         ]
 
         def jClasses = "${project.buildDir}/intermediates/javac/debug/classes"

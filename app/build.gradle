@@ -1,4 +1,5 @@
 import com.app.signal.buildSrc.*
+import com.app.signal.buildSrc.UnitTest
 
 plugins {
     id "com.android.application"
@@ -8,6 +9,8 @@ plugins {
 
     id "dagger.hilt.android.plugin"
 }
+
+apply from: '../jacoco/modules.gradle'
 
 android {
     namespace AndroidTarget.nameSpace
@@ -52,6 +55,11 @@ android {
     kotlinOptions {
         jvmTarget = Java.jvmTarget
     }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -92,6 +100,16 @@ dependencies {
 
     kapt Libs.Hilt.kapt
 
+    // TESTING
+    testImplementation UnitTest.jupiter_api
+    testImplementation UnitTest.jupiter_params
+    testRuntimeOnly UnitTest.jupiter_engine
+
+    testImplementation TestLibraries.coroutines
+
+    // Mock web server
+    testImplementation UnitTest.mock_web_server
+    testImplementation UnitTest.okHttp
 
 }
 

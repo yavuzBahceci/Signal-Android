@@ -1,5 +1,5 @@
+---
 name: Build and Test Android App
-
 on:
   push:
     branches:
@@ -36,22 +36,21 @@ jobs:
       - name: Update Gradle Wrapper Permissions
         run: chmod +x ./gradlew
 
-      - name: Build and test each module
-        run: |
-          ./gradlew clean build
-          # Run tests for each module
-          ./gradlew :data:createDebugCoverageReport
-          ./gradlew :feature:dashboard:createDebugCoverageReport
-          ./gradlew :feature:discover:createDebugCoverageReport
-          ./gradlew :feature:saved:createDebugCoverageReport
-          ./gradlew :feature:image-detail:createDebugCoverageReport
+      - name: Install dependencies
+        run: ./gradlew dependencies
 
-          ./gradlew generateCoverageReport
-        
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: Run unit tests
+        run: ./gradlew debugCoverage
+
+      - name: Run unit tests
+        run: ./gradlew allDebugCoverage
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
-        env: 
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          name: coverage-report
-          directory: build/reports/jacoco/jacoco.xml
+          file: ./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -1,5 +1,4 @@
 name: Build, Test, and Validate Coverage
-
 on:
   push:
     branches:
@@ -65,13 +64,29 @@ jobs:
 
       - name: Validate coverage
         run: |
-          coverage=$(curl -s "https://codecov.io/api/gh/${{ github.repository }}/branch/${{ github.ref }}" | jq -r '.commit.totals.c')
-          if [ "${coverage%.*}" -ge 60 ]; then
+          coverage_report="./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml"
+          coverage=$(cat "$coverage_report" | grep -oP '(?<=<counter type="INSTRUCTION">)[^<]+')
+          if [ -z "$coverage" ]; then
+            echo "Coverage report is empty or not found."
+            exit 1
+          elif [ "${coverage%.*}" -ge 60 ]; then
             echo "Coverage meets the threshold."
           else
             echo "Coverage does not meet the threshold."
             exit 1
           fi
+
+  merge-and-upload-coverage:
+    needs: validate-coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Merge pull request
+        run: |
+          # Your merge command here
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

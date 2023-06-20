@@ -76,7 +76,7 @@ jobs:
 
       - name: Validate coverage
         run: |
-          coverage_report_path="/home/runner/work/Signal-Android/Signal-Android/coverage-report/allDebugCoverage.xml"
+          coverage_report_path="/home/runner/work/Signal-Android/Signal-Android/coverage-report"
           if [ -f "$coverage_report_path" ]; then
             coverage=$(cat "$coverage_report_path" | grep -oP '(?<=<counter type="INSTRUCTION">)[^<]+')
             if [ -z "$coverage" ]; then

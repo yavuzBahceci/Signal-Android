@@ -1,4 +1,5 @@
 name: Build, Test, and Validate Coverage
+
 on:
   push:
     branches:
@@ -44,6 +45,13 @@ jobs:
       - name: Run unit tests
         run: ./gradlew debugCoverage
 
+      - name: Save coverage report as artifact
+        if: always()  # Save the artifact even if previous steps fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+
   validate-coverage:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -52,10 +60,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up JDK
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jdk
+      - name: Download coverage report artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage-report
 
       - name: Install jq
         run: |
@@ -64,33 +73,33 @@ jobs:
 
       - name: Validate coverage
         run: |
-          coverage_report="./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml"
-          coverage=$(cat "$coverage_report" | grep -oP '(?<=<counter type="INSTRUCTION">)[^<]+')
-          if [ -z "$coverage" ]; then
-            echo "Coverage report is empty or not found."
-            exit 1
-          elif [ "${coverage%.*}" -ge 60 ]; then
-            echo "Coverage meets the threshold."
+          coverage_report_path="./coverage-report/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml"
+          if [ -f "$coverage_report_path" ]; then
+            coverage=$(cat "$coverage_report_path" | grep -oP '(?<=<counter type="INSTRUCTION">)[^<]+')
+            if [ -z "$coverage" ]; then
+              echo "Coverage report is empty."
+              exit 1
+            elif [ "${coverage%.*}" -ge 60 ]; then
+              echo "Coverage meets the threshold."
+            else
+              echo "Coverage does not meet the threshold."
+              exit 1
+            fi
           else
-            echo "Coverage does not meet the threshold."
+            echo "Coverage report not found."
             exit 1
           fi
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage-report/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   merge-and-upload-coverage:
     needs: validate-coverage
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Merge pull request
-        run: |
-          # Your merge command here
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # Your merge command here

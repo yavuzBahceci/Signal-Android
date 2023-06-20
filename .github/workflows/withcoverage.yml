@@ -44,6 +44,9 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew debugCoverage
+      
+      - name: Merge all test
+        run: ./gradlew allDebugCoverage
 
       - name: Save coverage report as artifact
         if: always()  # Save the artifact even if previous steps fail

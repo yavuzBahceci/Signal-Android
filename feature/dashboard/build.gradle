@@ -1,8 +1,6 @@
 import com.app.signal.buildSrc.AndroidTarget
 import com.app.signal.buildSrc.Libs
 import com.app.signal.buildSrc.Module
-import com.app.signal.buildSrc.TestLibraries
-import com.app.signal.buildSrc.UnitTest
 
 plugins {
     id "com.android.library"
@@ -12,9 +10,9 @@ plugins {
     id "kotlin-parcelize"
     id "kotlinx-serialization"
     id "kotlin-kapt"
+    id "jacoco-report-aggregation"
 }
 apply from: '../../jacoco/modules.gradle'
-
 android {
     compileSdkVersion AndroidTarget.compileSdk
 
@@ -30,18 +28,13 @@ android {
     }
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled false
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
-    }
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
     }
 }
 
@@ -86,16 +79,6 @@ dependencies {
     kapt Libs.Hilt.kapt
 
     implementation project(Module.Common.navigation)
-    // TESTING
-    testImplementation UnitTest.jupiter_api
-    testImplementation UnitTest.jupiter_params
-    testRuntimeOnly UnitTest.jupiter_engine
-
-    testImplementation TestLibraries.coroutines
-
-    // Mock web server
-    testImplementation UnitTest.mock_web_server
-    testImplementation UnitTest.okHttp
 
 
 }

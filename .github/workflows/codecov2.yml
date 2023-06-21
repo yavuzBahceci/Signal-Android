@@ -1,0 +1,56 @@
+name: Build, Test, and Validate Coverage
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk
+
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+          mkdir android-sdk
+          cd android-sdk
+          curl -fsSLO "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip"
+          unzip -q commandlinetools-linux-7583922_latest.zip
+          export ANDROID_SDK_ROOT=$PWD
+          export PATH=$PATH:$PWD/cmdline-tools/bin
+          yes | cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33"
+
+      - name: Update Gradle Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Install dependencies
+        run: ./gradlew dependencies
+
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: Run unit tests
+        run: ./gradlew debugCoverage
+      
+      - name: Merge all test
+        run: ./gradlew allDebugCoverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage-report/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

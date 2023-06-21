@@ -63,6 +63,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -104,5 +105,4 @@ dependencies {
     // Mock web server
     testImplementation UnitTest.mock_web_server
     testImplementation UnitTest.okHttp
-
 }

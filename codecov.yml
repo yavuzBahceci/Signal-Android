@@ -5,13 +5,6 @@ coverage:
         # basic
         target: 3%
         threshold: 1%
-        # flags: 
-        #   - unit
-        # paths: 
-        #   - "src"
-       # advanced settings
-        # branches: 
-        #   - dev
         if_ci_failed: error #success, failure, error, ignore
         informational: false
         only_pulls: false

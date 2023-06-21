@@ -6,5 +6,4 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.44' apply false
     id 'jacoco'
 }
-
 apply from: 'jacoco/project.gradle'

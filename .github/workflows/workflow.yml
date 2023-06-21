@@ -1,12 +1,6 @@
 name: Build, Test, and Validate Coverage
 
-on:
-  push:
-    branches:
-      - dev
-  pull_request:
-    branches:
-      - dev
+on: [push, pull_request]
 
 jobs:
   build-and-test:
@@ -51,6 +45,6 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: ./coverage-report/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+          file: ./build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

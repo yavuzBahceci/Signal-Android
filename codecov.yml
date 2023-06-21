@@ -2,6 +2,21 @@ coverage:
   status:
     project:
       default:
+        # basic
+        target: 3%
+        threshold: 1%
+        # flags: 
+        #   - unit
+        # paths: 
+        #   - "src"
+       # advanced settings
+        # branches: 
+        #   - dev
+        if_ci_failed: error #success, failure, error, ignore
+        informational: false
+        only_pulls: false
+    patch:
+      default:
         target: 3%
         threshold: 1%
 #name: Build, Test, and Validate Coverage

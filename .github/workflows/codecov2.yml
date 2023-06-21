@@ -1,5 +1,5 @@
----
-name: Build and Test Android App
+name: Build, Test, and Validate Coverage
+
 on:
   push:
     branches:
@@ -9,7 +9,7 @@ on:
       - dev
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,9 +43,14 @@ jobs:
         run: ./gradlew build
 
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew debugCoverage
+      
+      - name: Merge all test
+        run: ./gradlew allDebugCoverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage-report/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
